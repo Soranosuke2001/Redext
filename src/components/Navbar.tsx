@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Icons } from "./Icons";
+import { buttonVariants } from "./ui/Button";
 
 const Navbar = () => {
   return (
@@ -12,6 +13,11 @@ const Navbar = () => {
             Redext
           </p>
         </Link>
+
+        {/* Search Bar */}
+
+        {/* This is to make the 'Link" component look like a button component */}
+        <Link href='/sign-in' className={buttonVariants()}>Sign In</Link>
       </div>
     </div>
   );
