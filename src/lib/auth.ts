@@ -1,4 +1,4 @@
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, getServerSession } from "next-auth";
 import { db } from "./db";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { nanoid } from "nanoid";
@@ -68,3 +68,5 @@ export const authOptions: NextAuthOptions = {
     },
   },
 };
+
+export const getAuthSession = () => getServerSession(authOptions);
