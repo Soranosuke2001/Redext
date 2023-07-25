@@ -1,6 +1,7 @@
-import { LucideProps } from "lucide-react";
+import { LucideProps, User } from "lucide-react";
 
 export const Icons = {
+  user: User,
   // This is a icon library and it comes preinstalled with Next.js
   logo: (props: LucideProps) => (
     <svg {...props} viewBox="0 0 497 497">

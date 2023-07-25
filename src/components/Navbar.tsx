@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Icons } from "./Icons";
 import { buttonVariants } from "./ui/Button";
 import { getAuthSession } from "@/lib/auth";
+import UserAccountNav from "./UserAccountNav";
 
 const Navbar = async () => {
   // Gets the current user's session if it exists
@@ -20,8 +21,8 @@ const Navbar = async () => {
 
         {/* Search Bar */}
 
-        {session ? (
-          <p>You Are Logged In</p>
+        {session?.user ? (
+          <UserAccountNav user={session.user} />
         ) : (
           // This is to make the 'Link" component look like a button component
           <Link href="/sign-in" className={buttonVariants()}>
