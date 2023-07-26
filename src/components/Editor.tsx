@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import type EditorJS from "@editorjs/editorjs";
 import { uploadFiles } from "@/lib/uploadthing";
+import { toast } from "@/hooks/use-toast";
 
 interface EditorProps {
   subredditId: string;
@@ -95,11 +96,23 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
   }, []);
 
   useEffect(() => {
+    if (Object.keys(errors).length) {
+      for (const [_key, value] of Object.entries(errors)) {
+        toast({
+          title: "An Error Occurred!",
+          description: (value as { message: string }).message,
+          variant: "destructive",
+        });
+      }
+    }
+  }, [errors]);
+
+  useEffect(() => {
     const init = async () => {
       await initializeEditor();
 
       setTimeout(() => {
-        _titleRef.current?.focus
+        _titleRef.current?.focus;
       }, 0);
     };
 
@@ -107,8 +120,8 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
       init();
 
       return () => {
-        ref.current?.destroy()
-        ref.current = undefined
+        ref.current?.destroy();
+        ref.current = undefined;
       };
     }
   }, [isMounted, initializeEditor]);
@@ -117,7 +130,11 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
 
   return (
     <div className="w-full p-4 bg-zinc-50 rounded-lg border border-zinc-200">
-      <form id="subreddit-post-form" className="w-fit" onSubmit={() => {}}>
+      <form
+        id="subreddit-post-form"
+        className="w-fit"
+        onSubmit={handleSubmit((e) => {})}
+      >
         <div className="prose prose-stone dark:prose-invert">
           <TextareaAutosize
             ref={(e) => {
