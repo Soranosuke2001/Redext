@@ -53,6 +53,19 @@ const Page = () => {
           return loginToast();
         }
       }
+
+      // Handling any other error
+      toast({
+        title: "An Error Occurred",
+        description:
+          "Apologies. We were unable to create the subreddit. Please try again later.",
+        variant: "destructive",
+      });
+    },
+
+    // Redirect the user to the new subreddit page on success
+    onSuccess: (data) => {
+      router.push(`/r/${data}`);
     },
   });
 
