@@ -60,7 +60,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
         onReady() {
           ref.current = editor;
         },
-        placeholder: "Type here to write your post",
+        placeholder: "Type here to write your post...",
         inlineToolbar: true,
         data: {
           blocks: [],
