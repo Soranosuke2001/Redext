@@ -158,7 +158,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
       return toast({
         title: "An Error Occurred",
         description:
-          "There was an error creating your post. Please try again later.",
+          "There was an error creating your post. Please try again later. NOTE: Max 4MB File Size.",
         variant: "destructive",
       });
     },
