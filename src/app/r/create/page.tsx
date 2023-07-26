@@ -5,14 +5,18 @@ import { Input } from "@/components/ui/Input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { CreateSubredditPayload } from "@/lib/validators/subreddit";
+import { toast } from "@/hooks/use-toast";
+import { useCustomToast } from "@/hooks/use-custom-toast";
 
 const Page = () => {
   const [input, setInput] = useState<string>("");
   const router = useRouter();
+  const { loginToast } = useCustomToast();
 
   const { mutate: createCommunity, isLoading } = useMutation({
+    // POST request to create the new subreddit
     mutationFn: async () => {
       const payload: CreateSubredditPayload = {
         name: input,
@@ -20,6 +24,35 @@ const Page = () => {
       const { data } = await axios.post("/api/subreddit", payload);
 
       return data as string;
+    },
+
+    // If an error response was returned from the api while creating a new subreddit
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        // If the post already exists
+        if (err.response?.status === 409) {
+          return toast({
+            title: "Subreddit Already Exists",
+            description: "Please choose a different subreddit name.",
+            variant: "destructive",
+          });
+        }
+
+        // If the entered subreddit name was invalid
+        if (err.response?.status === 422) {
+          return toast({
+            title: "Invalid Subreddit Name",
+            description:
+              "Please choose a different subreddit name between 3 and 21 characters.",
+            variant: "destructive",
+          });
+        }
+
+        // If the user is not logged in
+        if (err.response?.status === 401) {
+          return loginToast();
+        }
+      }
     },
   });
 
