@@ -58,8 +58,49 @@ const SubscribeLeaveToggle: FC<SubscribeLeaveToggleProps> = ({
     },
   });
 
+  const { mutate: unsubscribe, isLoading: isUnsubLoading } = useMutation({
+    mutationFn: async () => {
+      const payload: SubscribeToSubredditPayload = {
+        subredditId,
+      };
+
+      const { data } = await axios.post("/api/subreddit/unsubscribe", payload);
+      return data as string;
+    },
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 401) {
+          return loginToast();
+        }
+      }
+
+      return toast({
+        title: "An Error Occurred!",
+        description:
+          "Unable to unsubscribe you to the subreddit. Please try again later.",
+        variant: "destructive",
+      });
+    },
+    onSuccess: () => {
+      startTransition(() => {
+        router.refresh();
+      });
+
+      return toast({
+        title: "Unsubscribed Successfully!",
+        description: `You are now unsubscribed from r/${subredditName}`,
+      });
+    },
+  });
+
   return isSubscribed ? (
-    <Button className="w-full mt-1 mb-4">Leave Community</Button>
+    <Button
+      className="w-full mt-1 mb-4"
+      onClick={() => unsubscribe()}
+      isLoading={isUnsubLoading}
+    >
+      Leave Community
+    </Button>
   ) : (
     <Button
       className="w-full mt-1 mb-4"
