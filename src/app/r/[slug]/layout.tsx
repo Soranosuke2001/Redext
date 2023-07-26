@@ -96,10 +96,14 @@ const Layout = async ({
                   </p>
                 </div>
               ) : null}
-              
+
               {/* Button to join or leave the community */}
               {subreddit.creatorId !== session?.user.id ? (
-                <SubscribeLeaveToggle></SubscribeLeaveToggle>
+                <SubscribeLeaveToggle
+                  subredditId={subreddit.id}
+                  subredditName={subreddit.name}
+                  isSubscribed={isSubscribed}
+                ></SubscribeLeaveToggle>
               ) : null}
             </dl>
           </div>
