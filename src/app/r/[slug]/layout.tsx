@@ -2,6 +2,7 @@ import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
+import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
 
 const Layout = async ({
   children,
@@ -68,6 +69,7 @@ const Layout = async ({
               <p className="font-semibold py-3">About r/{subreddit.name}</p>
             </div>
 
+            {/* Community creation date */}
             <dl className="divide-y divide-gray-100 px-6 py-4 text-sm leading-6 bg-white">
               <div className="flex justify-between gap-x-4 py-3">
                 <dt className="text-gray-500">Created</dt>
@@ -78,6 +80,7 @@ const Layout = async ({
                 </dd>
               </div>
 
+              {/* Number of community members */}
               <div className="flex justify-between gap-x-4 py-3">
                 <dt className="text-gray-500">Members</dt>
                 <dd className="text-gray-700">
@@ -85,10 +88,18 @@ const Layout = async ({
                 </dd>
               </div>
 
+              {/* If the user logged in is the community creator */}
               {subreddit.creatorId === session?.user.id ? (
                 <div className="flex justify-between gap-x-4 py-3">
-                    <p className="text-gray-500">You are the community creator!</p>
+                  <p className="text-gray-500">
+                    You are the community creator!
+                  </p>
                 </div>
+              ) : null}
+              
+              {/* Button to join or leave the community */}
+              {subreddit.creatorId !== session?.user.id ? (
+                <SubscribeLeaveToggle></SubscribeLeaveToggle>
               ) : null}
             </dl>
           </div>
