@@ -18,6 +18,8 @@ interface EditorProps {
 }
 
 const Editor: FC<EditorProps> = ({ subredditId }) => {
+
+  // Using React useForm to handle creating a post
   const {
     register,
     handleSubmit,
@@ -37,12 +39,9 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
   const _titleRef = useRef<HTMLTextAreaElement>(null);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsMounted(true);
-    }
-  }, []);
-
+  // Setting up EditorJS
+  // Did not import all at once since this is a large package size
+  // Better UX by streaming the packages
   const initializeEditor = useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default;
     const Header = (await import("@editorjs/header")).default;
@@ -53,7 +52,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
     const LinkTool = (await import("@editorjs/link")).default;
     const InlineCode = (await import("@editorjs/inline-code")).default;
     const ImageTool = (await import("@editorjs/image")).default;
-
+    
     if (!ref.current) {
       const editor = new EditorJS({
         holder: "editor",
@@ -79,7 +78,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
               uploader: {
                 async uploadByFile(file: File) {
                   const [res] = await uploadFiles([file], "imageUploader");
-
+                  
                   return {
                     success: 1,
                     file: {
@@ -101,6 +100,13 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
   }, []);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsMounted(true);
+    }
+  }, []);
+
+  // Checking if any errors had occurred
+  useEffect(() => {
     if (Object.keys(errors).length) {
       for (const [_key, value] of Object.entries(errors)) {
         toast({
@@ -112,6 +118,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
     }
   }, [errors]);
 
+  // Focus on the 'title' input box
   useEffect(() => {
     const init = async () => {
       await initializeEditor();
@@ -121,6 +128,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
       }, 0);
     };
 
+    // Initializing EditorJS
     if (isMounted) {
       init();
 
@@ -131,6 +139,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
     }
   }, [isMounted, initializeEditor]);
 
+  // POST request to save the post in the database
   const { mutate: createPost } = useMutation({
     mutationFn: async ({
       title,
@@ -166,6 +175,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
     },
   });
 
+  // Function to handle form submission
   async function onSubmit(data: PostCreationRequest) {
     const blocks = await ref.current?.save();
 
