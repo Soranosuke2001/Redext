@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { redis } from "@/lib/redis";
 import { PostVoteValidator } from "@/lib/validators/vote";
 import { CachedPost } from "@/types/redis";
+import { z } from "zod";
 
 export async function PATCH(req: Request) {
   try {
@@ -123,5 +124,12 @@ export async function PATCH(req: Request) {
     }
 
     return new Response("OK");
-  } catch (error) {}
+  } catch (error) {
+    // If the entered data is invalid
+    if (error instanceof z.ZodError) {
+      return new Response("Invalid Request Data", { status: 422 });
+    }
+
+    return new Response("Unable to update your vote.", { status: 500 });
+  }
 }
