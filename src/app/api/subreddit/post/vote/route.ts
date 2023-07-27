@@ -8,7 +8,7 @@ import { z } from "zod";
 
 export async function PATCH(req: Request) {
   try {
-    const body = req.json();
+    const body = await req.json();
     const { postId, voteType } = PostVoteValidator.parse(body);
 
     // Check if the user is logged in
