@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import PostFeed from "./PostFeed";
 
 const GeneralFeed = async () => {
+  // Getting the most recent posts
   const posts = await db.post.findMany({
     orderBy: {
       createdAt: "desc",

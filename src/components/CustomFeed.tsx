@@ -6,6 +6,7 @@ import { getAuthSession } from "@/lib/auth";
 const CustomFeed = async () => {
   const session = await getAuthSession();
 
+  // Checking which subreddit communities the user is subscribed to
   const followedCommunities = await db.subscription.findMany({
     where: {
       userId: session?.user.id,
@@ -15,6 +16,7 @@ const CustomFeed = async () => {
     },
   });
 
+  // Getting the posts within the subreddit community
   const posts = await db.post.findMany({
     where: {
       subreddit: {
