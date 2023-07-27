@@ -64,6 +64,7 @@ export async function PATCH(req: Request) {
         },
       });
 
+      // Updating total vote count
       const votesAmt = post.votes.reduce((acc, vote) => {
         if (vote.type === "UP") return acc + 1;
         if (vote.type === "DOWN") return acc - 1;
@@ -71,6 +72,7 @@ export async function PATCH(req: Request) {
         return acc;
       }, 0);
 
+      // Storing the post in Redis cache if number of upvotes is greater than 10
       if (votesAmt >= CACHE_AFTER_UPVOTES) {
         const cachePayload: CachedPost = {
           authorUsername: post.author.username ?? "",
@@ -81,10 +83,45 @@ export async function PATCH(req: Request) {
           createdAt: post.createdAt,
         };
 
+        // Saving the post in Redis
         await redis.hset(`post:${postId}`, cachePayload);
       }
 
       return new Response("OK");
     }
+
+    // Create the new vote if the user has not voted yet
+    await db.vote.create({
+      data: {
+        type: voteType,
+        userId: session.user.id,
+        postId,
+      },
+    });
+
+    // Updating total vote count
+    const votesAmt = post.votes.reduce((acc, vote) => {
+      if (vote.type === "UP") return acc + 1;
+      if (vote.type === "DOWN") return acc - 1;
+
+      return acc;
+    }, 0);
+
+    // Storing the post in Redis cache if number of upvotes is greater than 10
+    if (votesAmt >= CACHE_AFTER_UPVOTES) {
+      const cachePayload: CachedPost = {
+        authorUsername: post.author.username ?? "",
+        content: JSON.stringify(post.content),
+        id: post.id,
+        title: post.title,
+        currentVote: voteType,
+        createdAt: post.createdAt,
+      };
+
+      // Saving the post in Redis
+      await redis.hset(`post:${postId}`, cachePayload);
+    }
+
+    return new Response("OK");
   } catch (error) {}
 }
