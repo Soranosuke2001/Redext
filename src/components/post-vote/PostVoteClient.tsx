@@ -33,6 +33,7 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
     setCurrentVote(initialVote);
   }, [initialVote]);
 
+  // Updating the database with the new vote
   const { mutate: vote } = useMutation({
     mutationFn: async (voteType: VoteType) => {
       const payload: PostVoteRequest = {
@@ -43,6 +44,7 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
       await axios.patch("/api/subreddit/post/vote", payload);
     },
     onError: (err, voteType) => {
+      // Revert back to the previous vote count on error
       if (voteType === "UP") setVotesAmt((prev) => prev - 1);
       else setVotesAmt((prev) => prev + 1);
 
@@ -61,11 +63,14 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
       });
     },
     onMutate: (type: VoteType) => {
+      // If the user selects the same vote again, assume the user wants to cancel the vote
       if (currentVote === type) {
         setCurrentVote(undefined);
 
         if (type === "UP") setVotesAmt((prev) => prev - 1);
         else if (type === "DOWN") setVotesAmt((prev) => prev + 1);
+
+        // If the user clicked the opposite vote
       } else {
         setCurrentVote(type);
 
