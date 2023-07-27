@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { FC } from "react";
 
+// Lazy loading the import, ssr: false will disable server-rendering
 const Output = dynamic(
   async () => (await import("editorjs-react-renderer")).default,
   {
@@ -36,6 +37,7 @@ const EditorOutput: FC<EditorOutputProps> = ({ content }) => {
   );
 };
 
+// Custom code renderer to optimize performance and style
 function CustomCodeRenderer({ data }: any) {
   return (
     <pre className="bg-gray-800 rounded-md p-4">
@@ -44,6 +46,7 @@ function CustomCodeRenderer({ data }: any) {
   );
 }
 
+// Custom image renderer to optimize performance and style
 function CustomImageRenderer({ data }: any) {
   const src = data.file.url;
 
