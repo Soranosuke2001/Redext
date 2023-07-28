@@ -19,6 +19,7 @@ const PostComment: FC<PostCommentProps> = ({ comment }) => {
   return (
     <div ref={commentRef} className="flex flex-col">
       <div className="flex items-center">
+        {/* User Avatar */}
         <UserAvatar
           user={{
             name: comment.author.name || null,
@@ -27,6 +28,7 @@ const PostComment: FC<PostCommentProps> = ({ comment }) => {
           className="h-6 w-6"
         />
 
+        {/* Comment Details */}
         <div className="ml-2 flex items-center gap-x-2">
           <p className="text-sm font-medium text-gray-900">
             u/{comment.author.username}
@@ -36,6 +38,9 @@ const PostComment: FC<PostCommentProps> = ({ comment }) => {
           </p>
         </div>
       </div>
+
+      {/* Comment Content */}
+      <p className="text-sm text-zinc-900 mt-2">{comment.text}</p>
     </div>
   );
 };

@@ -30,6 +30,8 @@ const CommentSection = async ({ postId }: CommentSectionProps) => {
     <div className="flex flex-col gap-y-4 mt-4">
       <hr className="w-full h-px my-6" />
 
+      {/* Create Comment */}
+
       <div className="flex flex-col gap-y-6 mt-4">
         {comments
           .filter((comment) => !comment.replyToId)
