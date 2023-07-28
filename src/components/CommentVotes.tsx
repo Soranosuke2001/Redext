@@ -36,7 +36,7 @@ const CommentVotes: FC<CommentVoteProps> = ({
         voteType,
       };
 
-      await axios.patch("/api/subreddit/post/comment", payload);
+      await axios.patch("/api/subreddit/post/comment/vote", payload);
     },
     onError: (err, voteType) => {
       // Revert back to the previous vote count on error
