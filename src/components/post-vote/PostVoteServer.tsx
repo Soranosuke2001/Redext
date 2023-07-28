@@ -18,20 +18,25 @@ const PostVoteServer = async ({
 }: PostVoteServerProps) => {
   const session = await getServerSession();
 
+  // Setting the initial vote count status
   let _votesAmt: number = 0;
   let _currentVote: VoteType | null | undefined = undefined;
 
+  // If the post is not cached, then fetch the post vote from database
   if (getData) {
     const post = await getData();
 
+    // If the post could not be found
     if (!post) return notFound();
 
+    // Determining the total vote count
     _votesAmt = post.votes.reduce((acc, vote) => {
       if (vote.type === "UP") return acc + 1;
       if (vote.type === "DOWN") return acc - 1;
       return acc;
     }, 0);
 
+    // If the user has voted, then find which type of vote the user selected
     _currentVote = post.votes.find(
       (vote) => vote.userId === session?.user.id
     )?.type;
