@@ -114,7 +114,17 @@ const PostComment: FC<PostCommentProps> = ({
                 placeholder="Enter your comment"
               />
 
-              <div className="mt-2 flex justify-end">
+              <div className="mt-2 flex justify-end gap-2">
+                <Button
+                  tabIndex={-1}
+                  variant="subtle"
+                  onClick={() => {
+                    setIsReplying(false);
+                    setUserInput("");
+                  }}
+                >
+                  Cancel
+                </Button>
                 <Button
                   isLoading={isLoading}
                   disabled={userInput.length === 0}
