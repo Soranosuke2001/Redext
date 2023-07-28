@@ -26,8 +26,6 @@ interface UsernameFormProps {
 }
 
 const UsernameForm: FC<UsernameFormProps> = ({ user }) => {
-  const router = useRouter();
-
   const {
     handleSubmit,
     register,
