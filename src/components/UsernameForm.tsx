@@ -16,12 +16,18 @@ import {
 import { Label } from "./ui/Label";
 import { Input } from "./ui/Input";
 import { Button } from "./ui/Button";
+import { useMutation } from "@tanstack/react-query";
+import axios, { AxiosError } from "axios";
+import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 interface UsernameFormProps {
   user: Pick<User, "id" | "username">;
 }
 
 const UsernameForm: FC<UsernameFormProps> = ({ user }) => {
+  const router = useRouter();
+
   const {
     handleSubmit,
     register,
@@ -32,8 +38,51 @@ const UsernameForm: FC<UsernameFormProps> = ({ user }) => {
       name: user?.username || "",
     },
   });
+
+  const { mutate: updateUsername, isLoading } = useMutation({
+    mutationFn: async ({ name }: UsernameRequest) => {
+      const payload: UsernameRequest = {
+        name,
+      };
+
+      const { data } = await axios.patch(`/api/username`, payload);
+      return data;
+    },
+    // If an error response was returned from the api while creating a new subreddit
+    onError: (err) => {
+      if (err instanceof AxiosError) {
+        // If the post already exists
+        if (err.response?.status === 409) {
+          return toast({
+            title: "Username Already Exists",
+            description: "Please choose a different username.",
+            variant: "destructive",
+          });
+        }
+      }
+
+      // Handling any other error
+      toast({
+        title: "An Error Occurred",
+        description:
+          "Apologies. We were unable to change your username. Please try again later.",
+        variant: "destructive",
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "Username Updated!",
+        description: "Your username was successfully updated.",
+      });
+    },
+  });
+
   return (
-    <form action="" onSubmit={handleSubmit(() => {})}>
+    <form
+      onSubmit={handleSubmit((e) => {
+        updateUsername(e);
+      })}
+    >
       <Card>
         <CardHeader>
           <CardTitle>Your Username</CardTitle>
@@ -65,7 +114,7 @@ const UsernameForm: FC<UsernameFormProps> = ({ user }) => {
         </CardContent>
 
         <CardFooter>
-          <Button>Change Name</Button>
+          <Button isLoading={isLoading}>Change Name</Button>
         </CardFooter>
       </Card>
     </form>
