@@ -21,12 +21,14 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 
 const page = async ({ params }: PageProps) => {
+  // Fetch the post from Redis if it exists
   const cachedPost = (await redis.hgetall(
     `post:${params.postId}`
   )) as CachedPost;
 
   let post: (Post & { votes: Vote[]; author: User }) | null = null;
 
+  // If the post is not cached, fetch from database
   if (!cachedPost) {
     post = await db.post.findFirst({
       where: {
@@ -39,6 +41,7 @@ const page = async ({ params }: PageProps) => {
     });
   }
 
+  // If the post was not found
   if (!post && !cachedPost) return notFound();
 
   return (
@@ -62,14 +65,18 @@ const page = async ({ params }: PageProps) => {
         </Suspense>
 
         <div className="sm:w-0 w-full flex-1 bg-white p-4 rounded-sm">
+          {/* Post Details */}
           <p className="max-h-40 mt-1 truncate text-xs text-gray-500">
             Posted by u/{post?.author.username ?? cachedPost.authorUsername}{" "}
             {formatTimeToNow(new Date(post?.createdAt ?? cachedPost.createdAt))}
           </p>
+
+          {/* Post Title */}
           <h1 className="text-xl font-semibold py-2 leading-6 text-gray-900">
             {post?.title ?? cachedPost.title}
           </h1>
 
+          {/* Post Content */}
           <EditorOutput content={post?.content ?? cachedPost.content} />
         </div>
       </div>
