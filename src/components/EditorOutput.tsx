@@ -8,7 +8,7 @@ import { FC } from "react";
 const Output = dynamic(
   async () => (await import("editorjs-react-renderer")).default,
   {
-    ssr: false,
+    ssr: false
   }
 );
 

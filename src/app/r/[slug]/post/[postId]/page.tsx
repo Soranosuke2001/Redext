@@ -18,7 +18,7 @@ interface PageProps {
 }
 
 // To avoid loading old and stale data (Next.js caching)
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 export const fetchCache = "force-no-store";
 
 const page = async ({ params }: PageProps) => {
