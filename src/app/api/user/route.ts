@@ -11,11 +11,18 @@ export async function GET(req: Request) {
       where: {
         username,
       },
+      include: {
+        Post: true,
+        Subscription: true,
+        Vote: true,
+      },
     });
 
-    console.log({ username });
-    console.log({ result });
+    if (!result) return new Response("Invalid Username", { status: 400 });
+
+    console.log(result);
 
     return new Response(JSON.stringify(result));
+    // return new Response(result);
   } catch (error) {}
 }

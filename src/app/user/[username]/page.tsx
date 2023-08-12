@@ -14,11 +14,7 @@ interface PageProps {
 const page = ({ params }: PageProps) => {
   const { username } = params;
 
-  const {
-    data: userResult,
-    isFetched,
-    isFetching,
-  } = useQuery({
+  const { data, isFetched, isFetching, isError, error } = useQuery({
     queryFn: async () => {
       const { data } = await axios.get(`/api/user?username=${username}`);
 
@@ -26,21 +22,31 @@ const page = ({ params }: PageProps) => {
     },
     queryKey: ["search-user"],
   });
+  // const { image, createdAt, Post, Subscription, Vote } = userResult;
+
+  if (isFetched) console.log(typeof data.createdAt);
 
   return (
     <>
       {isFetching ? (
-      <div className="flex">
+        <div className="flex">
           <Skeleton className="w-[200px] h-[200px] rounded-full bg-slate-400" />
-        <div className="ml-9">
-          <Skeleton className="w-[350px] h-[70px] rounded-md bg-slate-400" />
-          <br />
-          <Skeleton className="w-[500px] h-[50px] rounded-md bg-slate-400" />
+          <div className="ml-9">
+            <Skeleton className="w-[350px] h-[70px] rounded-md bg-slate-400" />
+            <br />
+            <Skeleton className="w-[500px] h-[50px] rounded-md bg-slate-400" />
+          </div>
         </div>
-      </div>
       ) : (
         <div>
-          <UserInfo />
+          <UserInfo
+            image={data.image}
+            createdAt={data.createdAt}
+            Post={data.Post}
+            Subscription={data.Subscription}
+            Vote={data.Vote}
+            username={data.username}
+          />
         </div>
       )}
     </>
