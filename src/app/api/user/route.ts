@@ -23,5 +23,9 @@ export async function GET(req: Request) {
     // console.log(result);
 
     return new Response(JSON.stringify(result));
-  } catch (error) {}
+  } catch (error) {
+    return new Response("There was an error fetching user data", {
+      status: 500,
+    });
+  }
 }

@@ -1,18 +1,16 @@
-"use client";
-
 import UserInfo from "@/components/UserInfo";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useQuery as FetchUser } from "@tanstack/react-query";
 import axios from "axios";
 
 interface PageProps {
-  headers: {
+  params: {
     username: string;
   };
 }
 
-const page = async ({ headers }: PageProps) => {
-  const { username } = headers;
+const page = async ({ params }: PageProps) => {
+  const { username } = params;
 
   const { data, isFetched, isFetching, isError, error } = FetchUser({
     queryFn: async () => {
