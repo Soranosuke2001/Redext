@@ -2,7 +2,7 @@
 
 import UserInfo from "@/components/UserInfo";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery as FetchUser } from "@tanstack/react-query";
 import axios from "axios";
 
 interface PageProps {
@@ -14,7 +14,7 @@ interface PageProps {
 const page = ({ params }: PageProps) => {
   const { username } = params;
 
-  const { data, isFetched, isFetching, isError, error } = useQuery({
+  const { data, isFetched, isFetching, isError, error } = FetchUser({
     queryFn: async () => {
       const { data } = await axios.get(`/api/user?username=${username}`);
 
