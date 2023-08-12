@@ -20,9 +20,8 @@ export async function GET(req: Request) {
 
     if (!result) return new Response("Invalid Username", { status: 400 });
 
-    console.log(result);
+    // console.log(result);
 
     return new Response(JSON.stringify(result));
-    // return new Response(result);
   } catch (error) {}
 }
