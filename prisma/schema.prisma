@@ -55,6 +55,9 @@ model User {
   CommentVote  CommentVote[]
   Vote         Vote[]
   Subscription Subscription[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Subreddit {
@@ -97,7 +100,7 @@ model Post {
   authorId String
 
   comments Comment[]
-  votes     Vote[]
+  votes    Vote[]
 }
 
 model Comment {
