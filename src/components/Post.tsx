@@ -6,6 +6,7 @@ import { MessageSquare } from "lucide-react";
 import { FC, useRef } from "react";
 import EditorOutput from "./EditorOutput";
 import PostVoteClient from "./post-vote/PostVoteClient";
+import Link from "next/link";
 
 type PartialVote = Pick<Vote, "type">;
 interface PostProps {
@@ -36,7 +37,7 @@ const Post: FC<PostProps> = ({
           postId={post.id}
           initialVote={currentVote?.type}
         />
-        
+
         <div className="w-0 flex-1">
           <div className="max-h-40 mt-1 text-xs text-gray-500">
             {subredditName ? (
@@ -50,7 +51,12 @@ const Post: FC<PostProps> = ({
                 <span className="px-1">•</span>
               </>
             ) : null}
-            <span className="">Posted by u/{post.author.username}</span>{" "}
+            <span className="">
+              Posted by u/
+              <Link href={`/user/${post.author.username}`}>
+                {post.author.username}
+              </Link>
+            </span>{" "}
             {formatTimeToNow(new Date(post.createdAt))}
           </div>
 
