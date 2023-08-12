@@ -6,13 +6,13 @@ import { useQuery as FetchUser } from "@tanstack/react-query";
 import axios from "axios";
 
 interface PageProps {
-  params: {
+  headers: {
     username: string;
   };
 }
 
-const page = ({ params }: PageProps) => {
-  const { username } = params;
+const page = async ({ headers }: PageProps) => {
+  const { username } = headers;
 
   const { data, isFetched, isFetching, isError, error } = FetchUser({
     queryFn: async () => {
