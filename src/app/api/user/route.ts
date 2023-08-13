@@ -12,15 +12,17 @@ export async function GET(req: Request) {
         username,
       },
       include: {
-        Post: true,
-        Subscription: true,
-        Vote: true,
+        Subscription: {
+          include: {
+            subreddit: true,
+          },
+        },
       },
     });
 
     if (!result) return new Response("Invalid Username", { status: 400 });
 
-    // console.log(result);
+    console.log(result.Subscription);
 
     return new Response(JSON.stringify(result));
   } catch (error) {

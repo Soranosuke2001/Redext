@@ -1,11 +1,11 @@
 "use client";
 
+import ContentCard from "@/components/ContentCard";
 import UserInfo from "@/components/UserInfo";
 import { Separator } from "@/components/ui/Separator";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useQuery as FetchUser } from "@tanstack/react-query";
 import axios from "axios";
-import { Divide } from "lucide-react";
 import { useState } from "react";
 
 interface PageProps {
@@ -28,7 +28,7 @@ const page = ({ params }: PageProps) => {
     queryKey: ["search-user"],
   });
 
-  if (isFetched) console.log(typeof data.createdAt);
+  if (isFetched) console.log(data);
 
   const activityOptions = ["Joined Communities", "Upvotes", "Downvotes"];
 
@@ -50,9 +50,6 @@ const page = ({ params }: PageProps) => {
           <UserInfo
             image={data.image}
             createdAt={data.createdAt}
-            Post={data.Post}
-            Subscription={data.Subscription}
-            Vote={data.Vote}
             username={data.username}
           />
         </div>
@@ -92,7 +89,7 @@ const page = ({ params }: PageProps) => {
             <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
           </div>
         ) : (
-          <div className="">Content</div>
+          <ContentCard postList={data.Post} />
         )}
       </div>
     </>

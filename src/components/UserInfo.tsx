@@ -7,18 +7,12 @@ import { format } from "date-fns";
 interface UserInfoProps {
   image: string;
   createdAt: string;
-  Post: Post;
-  Subscription: Subscription;
-  Vote: Vote;
   username: string;
 }
 
 const UserInfo = ({
   image,
   createdAt,
-  Post,
-  Subscription,
-  Vote,
   username,
 }: UserInfoProps) => {
   // Returned response is a string, so converting back to a Date object
