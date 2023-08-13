@@ -1,6 +1,6 @@
 "use client";
 
-import ContentCard from "@/components/ContentCard";
+import CommunityCard from "@/components/CommunityCard";
 import UserInfo from "@/components/UserInfo";
 import { Separator } from "@/components/ui/Separator";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -89,7 +89,7 @@ const page = ({ params }: PageProps) => {
             <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
           </div>
         ) : (
-          <ContentCard postList={data.Post} />
+          <CommunityCard subscriptions={data.Subscription} />
         )}
       </div>
     </>

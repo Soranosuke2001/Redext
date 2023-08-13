@@ -14,17 +14,37 @@ export async function GET(req: Request) {
       include: {
         Subscription: {
           include: {
-            subreddit: true,
+            subreddit: {
+              include: {
+                Creator: true,
+              },
+            },
           },
         },
       },
     });
 
+    // If there was no matching username result
     if (!result) return new Response("Invalid Username", { status: 400 });
 
-    console.log(result.Subscription);
+    const updatedResult = {
+      id: result.id,
+      name: result.name,
+      username: result.username,
+      image: result.image,
+      createdAt: result.createdAt,
+      Subscription: result.Subscription.map((subreddit) => {
+        return {
+          subredditId: subreddit.subredditId,
+          subredditName: subreddit.subreddit.name,
+          subredditCreator: subreddit.subreddit.Creator?.username,
+        };
+      }),
+    };
 
-    return new Response(JSON.stringify(result));
+    console.log(updatedResult);
+
+    return new Response(JSON.stringify(updatedResult));
   } catch (error) {
     return new Response("There was an error fetching user data", {
       status: 500,
