@@ -5,6 +5,8 @@ import { Separator } from "@/components/ui/Separator";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useQuery as FetchUser } from "@tanstack/react-query";
 import axios from "axios";
+import { Divide } from "lucide-react";
+import { useState } from "react";
 
 interface PageProps {
   params: {
@@ -15,6 +17,8 @@ interface PageProps {
 const page = ({ params }: PageProps) => {
   const { username } = params;
 
+  const [navOption, setNavOption] = useState<string>("Joined Communities");
+
   const { data, isFetched, isFetching, isError, error } = FetchUser({
     queryFn: async () => {
       const { data } = await axios.get(`/api/user?username=${username}`);
@@ -23,7 +27,6 @@ const page = ({ params }: PageProps) => {
     },
     queryKey: ["search-user"],
   });
-  // const { image, createdAt, Post, Subscription, Vote } = userResult;
 
   if (isFetched) console.log(typeof data.createdAt);
 
@@ -54,9 +57,10 @@ const page = ({ params }: PageProps) => {
           />
         </div>
       )}
+
       {/* Bottom Half: User Activities */}
       <div className="flex flex-col justify-center items-center">
-        <Separator className="my-8 bg-black" />
+        <Separator className="my-8 bg-slate-400" />
       </div>
 
       {/* Mini NavBar */}
@@ -66,13 +70,31 @@ const page = ({ params }: PageProps) => {
             key={index}
             className="text-md relative after:bg-black after:absolute after:h-1 after:w-0 after:-bottom-1/3 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
           >
-            <button className="">{option}</button>
+            <button
+              className={`${
+                navOption === option ? "font-bold" : "text-slate-500"
+              }`}
+            >
+              {option}
+            </button>
           </div>
         ))}
       </div>
 
       {/* Contents */}
-      <div className=""></div>
+      {/* <div className="my-8 border-solid border-slate-500 rounded-lg border-2 border-spacing-2"> */}
+        <div className="my-8">
+        {isFetching ? (
+          <div className="flex flex-col items-center">
+            <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
+            <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
+            <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
+            <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
+          </div>
+        ) : (
+          <div className="">Content</div>
+        )}
+      </div>
     </>
   );
 };
