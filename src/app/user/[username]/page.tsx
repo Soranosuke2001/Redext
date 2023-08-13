@@ -1,12 +1,12 @@
 "use client";
 
 import CommunityCard from "@/components/CommunityCard";
+import MiniNavbar from "@/components/MiniNavbar";
 import UserInfo from "@/components/UserInfo";
 import { Separator } from "@/components/ui/Separator";
 import { Skeleton } from "@/components/ui/Skeleton";
 import { useQuery as FetchUser } from "@tanstack/react-query";
 import axios from "axios";
-import { useState } from "react";
 
 interface PageProps {
   params: {
@@ -16,8 +16,6 @@ interface PageProps {
 
 const page = ({ params }: PageProps) => {
   const { username } = params;
-
-  const [navOption, setNavOption] = useState<string>("Joined Communities");
 
   const { data, isFetched, isFetching, isError, error } = FetchUser({
     queryFn: async () => {
@@ -30,7 +28,6 @@ const page = ({ params }: PageProps) => {
 
   if (isFetched) console.log(data);
 
-  const activityOptions = ["Joined Communities", "Upvotes", "Downvotes"];
 
   return (
     <>
@@ -60,27 +57,11 @@ const page = ({ params }: PageProps) => {
         <Separator className="my-8 bg-slate-400" />
       </div>
 
-      {/* Mini NavBar */}
-      <div className="w-full flex justify-around">
-        {activityOptions.map((option, index) => (
-          <div
-            key={index}
-            className="text-md relative after:bg-black after:absolute after:h-1 after:w-0 after:-bottom-1/3 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
-          >
-            <button
-              className={`${
-                navOption === option ? "font-bold" : "text-slate-500"
-              }`}
-            >
-              {option}
-            </button>
-          </div>
-        ))}
-      </div>
+      <MiniNavbar />
 
       {/* Contents */}
       {/* <div className="my-8 border-solid border-slate-500 rounded-lg border-2 border-spacing-2"> */}
-        <div className="my-8">
+      <div className="my-8">
         {isFetching ? (
           <div className="flex flex-col items-center">
             <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
