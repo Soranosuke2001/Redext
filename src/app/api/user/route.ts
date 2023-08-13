@@ -17,12 +17,15 @@ export async function GET(req: Request) {
             subreddit: {
               include: {
                 Creator: true,
+                _count: true,
               },
             },
           },
         },
       },
     });
+
+    console.log(result?.Subscription[0].subreddit);
 
     // If there was no matching username result
     if (!result) return new Response("Invalid Username", { status: 400 });
@@ -38,6 +41,8 @@ export async function GET(req: Request) {
           subredditId: subreddit.subredditId,
           subredditName: subreddit.subreddit.name,
           subredditCreator: subreddit.subreddit.Creator?.username,
+          subredditCreationDate: subreddit.subreddit.createdAt,
+          subredditMemberCount: subreddit.subreddit._count.subscribers,
         };
       }),
     };

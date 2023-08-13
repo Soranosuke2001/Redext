@@ -1,20 +1,21 @@
-import { Subscription } from "@prisma/client";
 import { FC } from "react";
 import { Button } from "./ui/Button";
+import { Subscription } from "@prisma/client";
 
 interface CommunityCardProps {
-  subscriptions: Subscription[];
+  subscriptions: Subscription[]
+
 }
 
 const CommunityCard: FC<CommunityCardProps> = ({ subscriptions }) => {
   return (
     <>
-      {subscriptions.map((subscription) => (
+      {subscriptions.map((subscription: any) => (
         <div className="flex justify-between border border-solid border-slate-500 rounded-lg m-3">
           {/* Left Side */}
           <div className="flex flex-col m-2">
             <span className="text-sm text-zinc-500">
-              Created By: u/Soranosuke
+              {`Created By: u/Soranosuke`}
             </span>
             <span className="text-4xl font-ibm-plex-mono">r/testing</span>
             <div className="my-5" />
