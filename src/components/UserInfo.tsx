@@ -3,7 +3,6 @@
 import { Post, Subscription, Vote } from "@prisma/client";
 import UserAvatar from "./UserAvatar";
 import { format } from "date-fns";
-import { Separator } from "./ui/Separator";
 
 interface UserInfoProps {
   image: string;
@@ -24,8 +23,6 @@ const UserInfo = ({
 }: UserInfoProps) => {
   // Returned response is a string, so converting back to a Date object
   const joinedDate = new Date(createdAt);
-
-  const activityOptions = ["Joined Communities", "Upvotes", "Downvotes"];
 
   return (
     <>
@@ -50,26 +47,6 @@ const UserInfo = ({
           </div>
         </div>
       </div>
-
-      {/* Bottom Half: User Activities */}
-      <div className="flex flex-col justify-center items-center">
-        <Separator className="my-8 bg-black" />
-      </div>
-
-      {/* Mini NavBar */}
-      <div className="w-full flex justify-around">
-        {activityOptions.map((option, index) => (
-          <div
-            key={index}
-            className="text-md relative after:bg-black after:absolute after:h-1 after:w-0 after:-bottom-1/3 after:left-0 hover:after:w-full after:transition-all after:duration-300 cursor-pointer"
-          >
-            <button className="">{option}</button>
-          </div>
-        ))}
-      </div>
-
-      {/* Contents */}
-      <div className=""></div>
     </>
   );
 };
