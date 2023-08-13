@@ -1,45 +1,71 @@
 "use client";
 
-import { Post, Subscription, Vote } from "@prisma/client";
-import UserAvatar from "./UserAvatar";
-import { format } from "date-fns";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { FC } from "react";
+import { Skeleton } from "./ui/Skeleton";
+import UserProfile from "./UserProfile";
+import { Separator } from "./ui/Separator";
+import MiniNavbar from "./MiniNavbar";
+import CommunityCard from "./CommunityCard";
 
 interface UserInfoProps {
-  image: string;
-  createdAt: string;
   username: string;
 }
 
-const UserInfo = ({
-  image,
-  createdAt,
-  username,
-}: UserInfoProps) => {
-  // Returned response is a string, so converting back to a Date object
-  const joinedDate = new Date(createdAt);
+const UserInfo: FC<UserInfoProps> = ({ username }) => {
+  const { data, isFetched, isFetching, isError, error } = useQuery({
+    // Fetching user information from database
+    queryFn: async () => {
+      const { data } = await axios.get(`/api/user?username=${username}`);
 
+      return data;
+    },
+    queryKey: ["search-user"],
+  });
+  
   return (
     <>
-      {/* Top Half: Basic User Info */}
-      <div className="flex">
-        {/* User Profile Picture */}
-        <UserAvatar
-          user={{ image, name: username }}
-          className="w-[100px] h-[100px] md:w-[150px] md:h-[150px]"
-        />
-
-        {/* Username and Account Creation Date */}
-        <div className="ml-5 md:ml-10">
-          <p className="text-lg md:text-3xl text-zinc-900">{`u/${username}`}</p>
-          <div className="md:flex md:mt-2">
-            <dt className="text-md text-zinc-500">Member Since:</dt>
-            <dd className="text-md text-zinc-500 ml-2">
-              <time dateTime={joinedDate.toDateString()}>
-                {format(joinedDate, "MMMM d, yyyy")}
-              </time>
-            </dd>
+      {/* Loading Skeleton */}
+      {isFetching ? (
+        <div className="flex">
+          <Skeleton className="w-[200px] h-[200px] rounded-full bg-slate-400" />
+          <div className="ml-9">
+            <Skeleton className="w-[350px] h-[70px] rounded-md bg-slate-400" />
+            <br />
+            <Skeleton className="w-[500px] h-[50px] rounded-md bg-slate-400" />
           </div>
         </div>
+      ) : (
+        <div>
+          {/* Basic User Info */}
+          <UserProfile
+            image={data.image}
+            createdAt={data.createdAt}
+            username={data.username}
+          />
+        </div>
+      )}
+
+      {/* Bottom Half: User Activities */}
+      <div className="flex flex-col justify-center items-center">
+        <Separator className="my-8 bg-slate-400" />
+      </div>
+
+      <MiniNavbar />
+
+      {/* Contents */}
+      <div className="my-8">
+        {isFetching ? (
+          <div className="flex flex-col items-center">
+            <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
+            <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
+            <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
+            <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
+          </div>
+        ) : (
+          <CommunityCard subscriptions={data.Subscription} />
+        )}
       </div>
     </>
   );
