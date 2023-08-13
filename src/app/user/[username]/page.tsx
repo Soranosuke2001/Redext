@@ -1,4 +1,4 @@
-import UserInfo from "@/components/UserInfo";
+import UserInfo from "@/components/profile/UserInfo";
 
 interface PageProps {
   params: {

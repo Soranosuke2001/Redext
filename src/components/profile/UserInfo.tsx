@@ -3,9 +3,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { FC } from "react";
-import { Skeleton } from "./ui/Skeleton";
+import { Skeleton } from "../ui/Skeleton";
 import UserProfile from "./UserProfile";
-import { Separator } from "./ui/Separator";
+import { Separator } from "../ui/Separator";
 import MiniNavbar from "./MiniNavbar";
 import CommunityCard from "./CommunityCard";
 

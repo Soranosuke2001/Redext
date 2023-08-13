@@ -1,6 +1,6 @@
 "use client";
 
-import UserAvatar from "./UserAvatar";
+import UserAvatar from "../UserAvatar";
 import { format } from "date-fns";
 
 interface UserProfileProps {
