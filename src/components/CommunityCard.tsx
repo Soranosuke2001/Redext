@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Button } from "./ui/Button";
 import { format } from "date-fns";
+import { Users } from "lucide-react";
 
 interface CommunityCardProps {
   subscriptions: {
@@ -28,7 +28,7 @@ const CommunityCard: FC<CommunityCardProps> = ({ subscriptions }) => {
               <span className="text-sm text-zinc-600">
                 {`Created By: u/${subscription.subredditCreator}`}
               </span>
-              <span className="text-4xl font-ibm-plex-mono">{`r/${subscription.subredditName}`}</span>
+              <span className="text-4xl font-sans tracking-wide">{`r/${subscription.subredditName}`}</span>
               <div className="my-5" />
               <div className="flex">
                 <dt className="text-zinc-700">Creation Date:</dt>
@@ -42,11 +42,19 @@ const CommunityCard: FC<CommunityCardProps> = ({ subscriptions }) => {
 
             {/* Right Side */}
             <div className="flex flex-col justify-between m-3">
-              <Button className="border-2 border-solid border-black p-2">
+              <a
+                href={`/r/${subscription.subredditName}`}
+                className="border-2 border-solid border-black p-3 bg-gray-900 text-slate-100 rounded-lg"
+              >
                 View Community
-              </Button>
+              </a>
 
-              <span className="text-end">{`Members: ${subscription.subredditMemberCount}`}</span>
+              <div className="flex justify-end">
+                <span className="mr-2 text-xl">
+                  {subscription.subredditMemberCount}
+                </span>
+                <Users />
+              </div>
             </div>
           </div>
         );
