@@ -59,6 +59,14 @@ const Layout = async ({
     },
   });
 
+  const postCount = await db.post.count({
+    where: {
+      subreddit: {
+        name: slug,
+      },
+    },
+  });
+
   return (
     <div className="sm:container max-w-7xl mx-auto h-full pt-12">
       <div className="">
@@ -87,6 +95,14 @@ const Layout = async ({
                 <dt className="text-gray-500">Members</dt>
                 <dd className="text-gray-700">
                   <div className="text-gray-900">{memberCount}</div>
+                </dd>
+              </div>
+
+              {/* Number of posts created */}
+              <div className="flex justify-between gap-x-4 py-3">
+                <dt className="text-gray-500">Posts</dt>
+                <dd className="text-gray-700">
+                  <div className="text-gray-900">{postCount}</div>
                 </dd>
               </div>
 

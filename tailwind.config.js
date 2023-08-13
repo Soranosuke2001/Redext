@@ -15,6 +15,9 @@ module.exports = {
         "2xl": "1400px",
       },
     },
+    listStyleType: {
+      none: "none",
+    },
     extend: {
       fontFamily: {
         "roboto-mono": ["Roboto Mono", "monospace"],
