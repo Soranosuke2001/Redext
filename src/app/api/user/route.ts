@@ -23,6 +23,7 @@ export async function GET(req: Request) {
           },
         },
       },
+      take: 10,
     });
 
     console.log(result?.Subscription[0].subreddit);

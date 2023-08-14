@@ -8,27 +8,11 @@ import UserProfile from "./UserProfile";
 import { Separator } from "../ui/Separator";
 import MiniNavbar from "./MiniNavbar";
 import CommunityCard from "./CommunityCard";
+import type { subbedSubreddit } from "@/types/subredditSubscription";
 
 interface UserInfoProps {
   username: string;
 }
-
-type subbedSubreddit = {
-  data: {
-    id: string;
-    name: string | null;
-    username: string | null;
-    image: string | null;
-    createdAt: string;
-    Subscription: {
-      subredditId: string;
-      subredditName: string;
-      subredditCreator: string | null | undefined;
-      subredditCreationDate: Date;
-      subredditMemberCount: number;
-    }[];
-  } | null;
-};
 
 const UserInfo = ({ username }: UserInfoProps) => {
   const [navOption, setNavOption] = useState<string>("Joined Communities");
@@ -45,12 +29,10 @@ const UserInfo = ({ username }: UserInfoProps) => {
     queryKey: ["search-user"],
   });
 
-  if (!data) return <div>Failed to fetch data</div>
-
   return (
     <>
       {/* Loading Skeleton */}
-      {isFetching ? (
+      {isFetching || !data ? (
         <div className="flex">
           <Skeleton className="w-[200px] h-[200px] rounded-full bg-slate-400" />
           <div className="ml-9">
@@ -83,7 +65,7 @@ const UserInfo = ({ username }: UserInfoProps) => {
 
       {/* Contents */}
       <div className="my-8">
-        {isFetching ? (
+        {isFetching || !data ? (
           <div className="flex flex-col items-center">
             <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
             <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
