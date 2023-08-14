@@ -16,10 +16,21 @@ interface UserInfoProps {
 
 const UserInfo = ({ userId }: UserInfoProps) => {
   const [navOption, setNavOption] = useState<string>("Joined Communities");
+  const [firstLoad, setFirstLoad] = useState<boolean>(true);
 
   // Query to fetch the subbed subreddits and upvoted/downvoted posts
-  const [joinedCommunitiesQuery, upvotesQuery, downvotesQuery] = useQueries({
+  const [userInfoQuery, joinedCommunitiesQuery, upvotesQuery, downvotesQuery] = useQueries({
     queries: [
+      {
+        queryKey: ["userInfo"],
+        queryFn: async () => {
+          const { data } = await axios.get(`/api/user?userId=${userId}`);
+          setFirstLoad(false);
+
+          return data;
+        },
+        enabled: firstLoad === true,
+      },
       {
         queryKey: ["joinedCommunities"],
         queryFn: async () => {
@@ -59,7 +70,7 @@ const UserInfo = ({ userId }: UserInfoProps) => {
   return (
     <>
       {/* Loading Skeleton */}
-      {joinedCommunitiesQuery.isFetching || !joinedCommunitiesQuery.data ? (
+      {userInfoQuery.isFetching ? (
         <div className="flex">
           <Skeleton className="w-[200px] h-[200px] rounded-full bg-slate-400" />
           <div className="ml-9">
@@ -72,9 +83,9 @@ const UserInfo = ({ userId }: UserInfoProps) => {
         <div>
           {/* Basic User Info */}
           <UserProfile
-            image={joinedCommunitiesQuery.data.image}
-            createdAt={joinedCommunitiesQuery.data.createdAt}
-            username={joinedCommunitiesQuery.data.username}
+            image={userInfoQuery.data.image}
+            createdAt={userInfoQuery.data.createdAt}
+            username={userInfoQuery.data.username}
           />
         </div>
       )}
