@@ -8,7 +8,8 @@ import UserProfile from "./UserProfile";
 import { Separator } from "../ui/Separator";
 import MiniNavbar from "./MiniNavbar";
 import CommunityCard from "./CommunityCard";
-import type { subbedSubreddit } from "@/types/subredditSubscription";
+import type { subbedSubreddit, votes } from "@/types/profile";
+import ProfileContents from "./ProfileContents";
 
 interface UserInfoProps {
   userId: string;
@@ -35,7 +36,7 @@ const UserInfo = ({ userId }: UserInfoProps) => {
         queryFn: async () => {
           const { data } = (await axios.get(
             `/api/user/votes?userId=${userId}&voteType=UP`
-          ));
+          )) as votes;
 
           return data;
         },
@@ -46,7 +47,7 @@ const UserInfo = ({ userId }: UserInfoProps) => {
         queryFn: async () => {
           const { data } = (await axios.get(
             `/api/user/votes?userId=${userId}&voteType=DOWN`
-          ));
+          )) as votes;
 
           return data;
         },
@@ -91,7 +92,9 @@ const UserInfo = ({ userId }: UserInfoProps) => {
 
       {/* Contents */}
       <div className="my-8">
-        {joinedCommunitiesQuery.isFetching || !joinedCommunitiesQuery.data ? (
+        {joinedCommunitiesQuery.isFetching ||
+        upvotesQuery.isFetching ||
+        downvotesQuery.isFetching ? (
           <div className="flex flex-col items-center">
             <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
             <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
@@ -99,7 +102,12 @@ const UserInfo = ({ userId }: UserInfoProps) => {
             <Skeleton className="h-[150px] w-[90%] bg-slate-400 m-4 justify-center" />
           </div>
         ) : (
-          <CommunityCard subscriptions={joinedCommunitiesQuery.data.Subscription} />
+          <ProfileContents
+            navOption={navOption}
+            subbedSubreddits={joinedCommunitiesQuery.data?.Subscription}
+            upvotePosts={upvotesQuery.data}
+            downvotePosts={downvotesQuery.data}
+          />
         )}
       </div>
     </>

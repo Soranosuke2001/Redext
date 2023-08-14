@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { format } from "date-fns";
 import { Users } from "lucide-react";
 
@@ -21,7 +20,7 @@ const CommunityCard = ({ subscriptions }: CommunityCardProps) => {
         return (
           <div
             key={subscription.subredditId}
-            className="flex justify-between border border-solid border-gray-200 rounded-lg m-3 bg-gray-200"
+            className="flex justify-between border border-solid border-gray-200 rounded-lg m-3 bg-gray-100"
           >
             {/* Left Side */}
             <div className="flex flex-col m-3">

@@ -1,3 +1,5 @@
+import { Prisma } from "@prisma/client";
+
 export type subbedSubreddit = {
   data: {
     id: string;
@@ -13,4 +15,17 @@ export type subbedSubreddit = {
       subredditMemberCount: number;
     }[];
   } | null;
+};
+
+export type votes = {
+  data: {
+    id: string;
+    title: string;
+    content: Prisma.JsonValue;
+    createdAt: string;
+    creator: string;
+    creatorId: string;
+    subredditName: string;
+    subredditId: string;
+  };
 };
