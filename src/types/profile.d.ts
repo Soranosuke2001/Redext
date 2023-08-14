@@ -27,5 +27,6 @@ export type votes = {
     creatorId: string;
     subredditName: string;
     subredditId: string;
-  };
+    commentCount: number;
+  }[];
 };

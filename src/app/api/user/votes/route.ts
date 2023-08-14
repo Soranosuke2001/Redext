@@ -67,6 +67,7 @@ export async function GET(req: Request) {
         creatorId: post.author.id,
         subredditName: post.subreddit.name,
         subredditId: post.subreddit.id,
+        commentCount: post.comments.length,
       };
     });
 

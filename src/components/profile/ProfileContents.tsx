@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { FC } from "react";
 import CommunityCard from "./CommunityCard";
+import VotedPosts from "./VotedPosts";
 
 interface ProfileContentsProps {
   navOption: string;
@@ -23,7 +24,8 @@ interface ProfileContentsProps {
         creatorId: string;
         subredditName: string;
         subredditId: string;
-      }
+        commentCount: number;
+      }[]
     | undefined;
   downvotePosts:
     | {
@@ -35,7 +37,8 @@ interface ProfileContentsProps {
         creatorId: string;
         subredditName: string;
         subredditId: string;
-      }
+        commentCount: number;
+      }[]
     | undefined;
 }
 
@@ -46,12 +49,23 @@ const ProfileContents: FC<ProfileContentsProps> = ({
   downvotePosts,
 }) => {
   if (navOption === "Joined Communities") {
-    if (!subbedSubreddits) return <div>No Data Available</div>
+    // Checking if the data exists
+    if (!subbedSubreddits) return <div>No Data Available</div>;
+
     return <CommunityCard subscriptions={subbedSubreddits} />;
   } else if (navOption === "Upvotes") {
-    return <div className="">Upvotes</div>;
+    // Checking if the data exists
+    if (!upvotePosts) return <div>No Data Available</div>;
+
+    return <VotedPosts posts={upvotePosts} />;
   } else {
-    return <div className="">Downvotes</div>;
+    // Since 1 option is always selected
+    // Raises no-return JSX error
+
+    // Checking if the data exists
+    if (!downvotePosts) return <div>No Data Available</div>;
+
+    return <VotedPosts posts={downvotePosts} />;
   }
 };
 

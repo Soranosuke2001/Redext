@@ -7,7 +7,6 @@ import { Skeleton } from "../ui/Skeleton";
 import UserProfile from "./UserProfile";
 import { Separator } from "../ui/Separator";
 import MiniNavbar from "./MiniNavbar";
-import CommunityCard from "./CommunityCard";
 import type { subbedSubreddit, votes } from "@/types/profile";
 import ProfileContents from "./ProfileContents";
 
