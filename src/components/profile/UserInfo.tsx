@@ -11,17 +11,17 @@ import CommunityCard from "./CommunityCard";
 import type { subbedSubreddit } from "@/types/subredditSubscription";
 
 interface UserInfoProps {
-  username: string;
+  userId: string;
 }
 
-const UserInfo = ({ username }: UserInfoProps) => {
+const UserInfo = ({ userId }: UserInfoProps) => {
   const [navOption, setNavOption] = useState<string>("Joined Communities");
 
   const { data, isFetched, isFetching, isError, error } = useQuery({
     // Fetching user information from database
     queryFn: async () => {
       const { data } = (await axios.get(
-        `/api/user?username=${username}`
+        `/api/user/communities?userId=${userId}`
       )) as subbedSubreddit;
 
       return data;

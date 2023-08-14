@@ -3,13 +3,13 @@ import { db } from "@/lib/db";
 export async function GET(req: Request) {
   try {
     const url = new URL(req.url);
-    const username = url.searchParams.get("username");
+    const userId = url.searchParams.get("userId");
 
-    if (!username) return new Response("Invalid Query", { status: 400 });
+    if (!userId) return new Response("Invalid Query", { status: 400 });
 
     const result = await db.user.findFirst({
       where: {
-        username,
+        id: userId,
       },
       include: {
         Subscription: {

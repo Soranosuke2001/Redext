@@ -53,7 +53,7 @@ const Post: FC<PostProps> = ({
             ) : null}
             <span className="">
               Posted by u/
-              <Link href={`/user/${post.author.username}`}>
+              <Link href={`/user/${post.author.id}`}>
                 {post.author.username}
               </Link>
             </span>{" "}

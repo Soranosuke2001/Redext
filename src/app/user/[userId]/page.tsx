@@ -2,16 +2,16 @@ import UserInfo from "@/components/profile/UserInfo";
 
 interface PageProps {
   params: {
-    username: string;
+    userId: string;
   };
 }
 
 const page = ({ params }: PageProps) => {
-  const { username } = params;
+  const { userId } = params;
 
   return (
     <>
-      <UserInfo username={username} />
+      <UserInfo userId={userId} />
     </>
   );
 };
