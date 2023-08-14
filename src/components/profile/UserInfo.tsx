@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { FC } from "react";
+import { useState } from "react";
 import { Skeleton } from "../ui/Skeleton";
 import UserProfile from "./UserProfile";
 import { Separator } from "../ui/Separator";
@@ -13,17 +13,40 @@ interface UserInfoProps {
   username: string;
 }
 
-const UserInfo: FC<UserInfoProps> = ({ username }) => {
+type subbedSubreddit = {
+  data: {
+    id: string;
+    name: string | null;
+    username: string | null;
+    image: string | null;
+    createdAt: string;
+    Subscription: {
+      subredditId: string;
+      subredditName: string;
+      subredditCreator: string | null | undefined;
+      subredditCreationDate: Date;
+      subredditMemberCount: number;
+    }[];
+  } | null;
+};
+
+const UserInfo = ({ username }: UserInfoProps) => {
+  const [navOption, setNavOption] = useState<string>("Joined Communities");
+
   const { data, isFetched, isFetching, isError, error } = useQuery({
     // Fetching user information from database
     queryFn: async () => {
-      const { data } = await axios.get(`/api/user?username=${username}`);
+      const { data } = (await axios.get(
+        `/api/user?username=${username}`
+      )) as subbedSubreddit;
 
       return data;
     },
     queryKey: ["search-user"],
   });
-  
+
+  if (!data) return <div>Failed to fetch data</div>
+
   return (
     <>
       {/* Loading Skeleton */}
@@ -52,7 +75,11 @@ const UserInfo: FC<UserInfoProps> = ({ username }) => {
         <Separator className="my-8 bg-slate-400" />
       </div>
 
-      <MiniNavbar />
+      <MiniNavbar
+        isFetching={isFetching}
+        setNavOption={setNavOption}
+        navOption={navOption}
+      />
 
       {/* Contents */}
       <div className="my-8">

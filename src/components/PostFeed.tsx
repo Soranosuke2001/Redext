@@ -91,6 +91,8 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subredditName }) => {
             />
           );
         }
+
+        // Loading animation when infinite scrolling is in effect
       })}
     </ul>
   );

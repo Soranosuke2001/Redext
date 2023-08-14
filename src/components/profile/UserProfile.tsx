@@ -4,9 +4,9 @@ import UserAvatar from "../UserAvatar";
 import { format } from "date-fns";
 
 interface UserProfileProps {
-  image: string;
+  image: string | null;
   createdAt: string;
-  username: string;
+  username: string | null;
 }
 
 const UserProfile = ({
@@ -15,7 +15,7 @@ const UserProfile = ({
   username,
 }: UserProfileProps) => {
   // Returned response is a string, so converting back to a Date object
-  const joinedDate = new Date(createdAt);
+    const joinedDate = new Date(createdAt);
 
   return (
     <>

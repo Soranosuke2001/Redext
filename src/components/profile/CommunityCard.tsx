@@ -6,13 +6,13 @@ interface CommunityCardProps {
   subscriptions: {
     subredditId: string;
     subredditName: string;
-    subredditCreator: string;
-    subredditCreationDate: string;
+    subredditCreator: string | null | undefined;
+    subredditCreationDate: Date;
     subredditMemberCount: number;
   }[];
 }
 
-const CommunityCard: FC<CommunityCardProps> = ({ subscriptions }) => {
+const CommunityCard = ({ subscriptions }: CommunityCardProps) => {
   return (
     <>
       {subscriptions.map((subscription) => {
