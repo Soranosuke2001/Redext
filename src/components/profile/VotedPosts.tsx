@@ -26,10 +26,11 @@ const VotedPosts: FC<VotedPostsProps> = ({ posts }) => {
   const pRef = useRef<HTMLDivElement>(null);
 
   return (
+    // Same code as the posts shown on the home page, but without the voting option
     <ul className="flex flex-col col-span-2 space-y-6">
       {posts.map((post) => {
         return (
-          <div className="rounded-mb bg-white shadow">
+          <div className="rounded-mb bg-white shadow" key={post.id}>
             <div className="flex px-6 py-4 justify-between">
               <div className="w-0 flex-1">
                 <div className="max-h-40 mt-1 text-xs text-gray-500">

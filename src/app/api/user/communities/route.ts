@@ -5,8 +5,10 @@ export async function GET(req: Request) {
     const url = new URL(req.url);
     const userId = url.searchParams.get("userId");
 
+    // If the user ID is missing 
     if (!userId) return new Response("Invalid Query", { status: 400 });
 
+    // Find the user ID in the database
     const result = await db.user.findFirst({
       where: {
         id: userId,
@@ -25,8 +27,6 @@ export async function GET(req: Request) {
       },
       take: 10,
     });
-
-    console.log(result?.Subscription[0].subreddit);
 
     // If there was no matching username result
     if (!result) return new Response("Invalid Username", { status: 400 });
@@ -47,8 +47,6 @@ export async function GET(req: Request) {
         };
       }),
     };
-
-    console.log(updatedResult);
 
     return new Response(JSON.stringify(updatedResult));
   } catch (error) {

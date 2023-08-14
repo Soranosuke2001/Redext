@@ -15,6 +15,7 @@ const MiniNavbar: FC<MiniNavbarProps> = ({
 
   return (
     <>
+      {/* Displays the Nav options */}
       <div className="w-full flex justify-around">
         {activityOptions.map((option, index) => (
           <div

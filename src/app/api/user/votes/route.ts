@@ -17,8 +17,6 @@ export async function GET(req: Request) {
       take: 50,
     });
 
-    console.log(result);
-
     // If there was no matching username result
     if (!result) return new Response("Invalid Username", { status: 400 });
 

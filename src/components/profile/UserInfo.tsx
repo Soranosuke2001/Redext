@@ -17,6 +17,7 @@ interface UserInfoProps {
 const UserInfo = ({ userId }: UserInfoProps) => {
   const [navOption, setNavOption] = useState<string>("Joined Communities");
 
+  // Query to fetch the subbed subreddits and upvoted/downvoted posts
   const [joinedCommunitiesQuery, upvotesQuery, downvotesQuery] = useQueries({
     queries: [
       {

@@ -14,6 +14,7 @@ interface CommunityCardProps {
 const CommunityCard = ({ subscriptions }: CommunityCardProps) => {
   return (
     <>
+      {/* Map over each subreddit that the user is subbed to */}
       {subscriptions.map((subscription) => {
         const creationDate = new Date(subscription.subredditCreationDate);
 
