@@ -4,6 +4,7 @@ import { buttonVariants } from "./ui/Button";
 import { getAuthSession } from "@/lib/auth";
 import UserAccountNav from "./UserAccountNav";
 import SearchBar from "./SearchBar";
+import ThemeToggle from "./dark-mode/ThemeToggle";
 
 const Navbar = async () => {
   // Gets the current user's session if it exists
@@ -23,14 +24,19 @@ const Navbar = async () => {
         {/* Search Bar */}
         <SearchBar />
 
-        {session?.user ? (
-          <UserAccountNav user={session.user} />
-        ) : (
-          // This is to make the 'Link" component look like a button component
-          <Link href="/sign-in" className={buttonVariants()}>
-            Sign In
-          </Link>
-        )}
+        <div className="flex gap-3">
+          {session?.user ? (
+            <UserAccountNav user={session.user} />
+          ) : (
+            // This is to make the 'Link" component look like a button component
+            <Link href="/sign-in" className={buttonVariants()}>
+              Sign In
+            </Link>
+          )}
+
+          {/* Light/Dark Theme Toggle Button */}
+          <ThemeToggle />
+        </div>
       </div>
     </div>
   );

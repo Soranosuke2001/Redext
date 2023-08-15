@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Providers from "@/components/Providers";
+import { ThemeProvider } from "@/components/dark-mode/Theme-Provider";
 import { Toaster } from "@/components/ui/Toaster";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
@@ -28,16 +29,18 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-screen pt-12 bg-slate-50 antialiased">
-        <Providers>
-          {/* @ts-expect-error server component */}
-          <Navbar />
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <Providers>
+            {/* @ts-expect-error server component */}
+            <Navbar />
 
-          {authModal}
-          <div className="container max-w-7xl mx-auto h-full pt-12">
-            {children}
-          </div>
-          <Toaster />
-        </Providers>
+            {authModal}
+            <div className="container max-w-7xl mx-auto h-full pt-12">
+              {children}
+            </div>
+            <Toaster />
+          </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

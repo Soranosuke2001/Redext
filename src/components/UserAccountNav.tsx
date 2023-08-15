@@ -12,12 +12,16 @@ import {
 import UserAvatar from "./UserAvatar";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { useTheme } from "next-themes";
+import { Button } from "./ui/Button";
+import { Moon, Sun } from "lucide-react";
 
 interface UserAccountNavProps {
   user: Pick<User, "name" | "image" | "email">;
 }
 
 const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
+  const { setTheme, theme } = useTheme();
   return (
     <DropdownMenu>
       {/* Triggers the dropdown menu to open and close */}
