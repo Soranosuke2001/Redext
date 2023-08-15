@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Button } from "../ui/Button";
 import { Moon, Sun } from "lucide-react";
 
@@ -9,6 +9,14 @@ interface ThemeToggleProps {}
 
 const ThemeToggle: FC<ThemeToggleProps> = ({}) => {
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
     <>
       {theme === "light" ? (
