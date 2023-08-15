@@ -5,12 +5,12 @@ import { getAuthSession } from "@/lib/auth";
 import { HomeIcon } from "lucide-react";
 import Link from "next/link";
 
-export const dynamic = 'force-dynamic'
-export const fetchCache = 'force-no-store'
+export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 export default async function Home() {
   const session = getAuthSession();
-  
+
   return (
     <>
       <h1 className="font-bold text-3xl md:text-4xl">Your Feed</h1>
@@ -18,7 +18,6 @@ export default async function Home() {
         {/* Feed */}
         {/* @ts-expect-error server component */}
         {session ? <CustomFeed /> : <GeneralFeed />}
-
 
         {/* Subreddit Info */}
         <div className="overflow-hidden h-fit rounded-lg border border-gray-200 oder-first md:order-last">
@@ -44,6 +43,12 @@ export default async function Home() {
               })}
             >
               Create Community
+            </Link>
+            <Link
+              href="/r/explore"
+              className={buttonVariants({ className: "w-full mb-6" })}
+            >
+              Explore Communities
             </Link>
           </div>
         </div>
