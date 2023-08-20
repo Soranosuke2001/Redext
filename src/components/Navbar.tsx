@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { Icons } from "./Icons";
 import { buttonVariants } from "./ui/Button";
 import { getAuthSession } from "@/lib/auth";
 import UserAccountNav from "./UserAccountNav";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./dark-mode/ThemeToggle";
+import Image from "next/image";
+import logo from '../../public/icon.png'
 
 const Navbar = async () => {
   // Gets the current user's session if it exists
@@ -15,7 +16,7 @@ const Navbar = async () => {
       <div className="container max-w-7xl h-full mx-auto flex items-center justify-between gap-2">
         {/* App Logo */}
         <Link href="/" className="flex gap-2 items-center">
-          <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6" />
+          <Image src={logo} alt='Redext Logo' className="w-10 h-10" />
           <p className="hidden text-black dark:text-white text-sm font-medium md:block">
             Redext
           </p>
