@@ -1,13 +1,14 @@
 "use client";
 
 import { ExtendedPost } from "@/types/db";
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Post from "./Post";
+import { Loader2 } from "lucide-react";
 
 interface PostFeedProps {
   initialPosts: ExtendedPost[];
@@ -23,7 +24,7 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subredditName }) => {
 
   const { data: session } = useSession();
 
-  const { data, fetchNextPage, isFetchingNextPage, isFetching } = useInfiniteQuery(
+  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
     ["infinite-query"],
     async ({ pageParam = 1 }) => {
       const query =
@@ -91,9 +92,14 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subredditName }) => {
             />
           );
         }
-
-        // Loading animation when infinite scrolling is in effect
       })}
+
+      {/* Loading animation when infinite scrolling is in effect */}
+      {isFetchingNextPage && (
+        <li className="flex justify-center">
+          <Loader2 className="w-6 h-6 text-zinc-500 animate-spin" />
+        </li>
+      )}
     </ul>
   );
 };
