@@ -82,17 +82,17 @@ const PostComment: FC<PostCommentProps> = ({
 
         {/* Comment Details */}
         <div className="ml-2 flex items-center gap-x-2">
-          <p className="text-sm font-medium text-gray-900">
+          <p className="text-sm font-medium text-gray-900 dark:text-neutral-300">
             u/{comment.author.username}
           </p>
-          <p className="max-h-40 truncate text-xs text-zinc-500">
+          <p className="max-h-40 truncate text-xs text-zinc-500 dark:text-zinc-400">
             {formatTimeToNow(new Date(comment.createdAt))}
           </p>
         </div>
       </div>
 
       {/* Comment Content */}
-      <p className="text-sm text-zinc-900 mt-2">{comment.text}</p>
+      <p className="text-sm text-zinc-900 dark:text-white mt-2">{comment.text}</p>
 
       <div className="flex gap-2 items-center flex-wrap">
         <CommentVotes
@@ -125,6 +125,7 @@ const PostComment: FC<PostCommentProps> = ({
                 onChange={(e) => setUserInput(e.target.value)}
                 rows={1}
                 placeholder="Enter your comment"
+                className="dark:border-white dark:placeholder:text-neutral-400"
               />
 
               <div className="mt-2 flex justify-end gap-2">

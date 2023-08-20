@@ -65,6 +65,7 @@ const CreateComment: FC<CreateCommentProps> = ({ postId, replyToId }) => {
           onChange={(e) => setUserInput(e.target.value)}
           rows={1}
           placeholder="Enter your comment"
+          className="dark:border-white dark:placeholder:text-neutral-400"
         />
 
         <div className="mt-2 flex justify-end">
@@ -72,6 +73,7 @@ const CreateComment: FC<CreateCommentProps> = ({ postId, replyToId }) => {
             isLoading={isLoading}
             disabled={userInput.length === 0}
             onClick={() => postComment({ postId, text: userInput, replyToId })}
+            className="dark:bg-black dark:hover:bg-neutral-900"
           >
             Post
           </Button>

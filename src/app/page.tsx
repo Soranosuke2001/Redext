@@ -20,9 +20,9 @@ export default async function Home() {
         {session ? <CustomFeed /> : <GeneralFeed />}
 
         {/* Subreddit Info */}
-        <div className="overflow-hidden h-fit rounded-lg border border-gray-200 oder-first md:order-last">
+        <div className="overflow-hidden h-fit rounded-lg border border-gray-300 dark:border-none shadow-lg bg-white dark:bg-neutral-800 order-first md:order-last">
           <div className="bg-emerald-100 px-6 py-4">
-            <p className="font-semibold py-3 flex items-center gap-1.5">
+            <p className="font-semibold py-3 flex items-center gap-1.5 text-black">
               <HomeIcon className="w-4 h-4" />
               Home
             </p>
@@ -30,7 +30,7 @@ export default async function Home() {
 
           <div className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
             <div className="flex justify-between gap-x-4 py-3">
-              <p className="text-zinc-500">
+              <p className="text-zinc-600 dark:text-gray-300">
                 Personal Redext Homepage. Come here to check in with your
                 favorite communities.
               </p>
@@ -39,14 +39,18 @@ export default async function Home() {
             <Link
               href="/r/create"
               className={buttonVariants({
-                className: "w-full mt-4 mb-6",
+                className: "w-full mt-4 mb-6 dark:border-none",
+                variant: "outline",
               })}
             >
               Create Community
             </Link>
             <Link
               href="/r/explore"
-              className={buttonVariants({ className: "w-full mb-6" })}
+              className={buttonVariants({
+                className: "w-full mb-6 dark:border-none",
+                variant: "outline",
+              })}
             >
               Explore Communities
             </Link>

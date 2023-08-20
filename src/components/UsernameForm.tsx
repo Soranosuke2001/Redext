@@ -112,7 +112,7 @@ const UsernameForm: FC<UsernameFormProps> = ({ user }) => {
         </CardContent>
 
         <CardFooter>
-          <Button isLoading={isLoading}>Change Name</Button>
+          <Button className="dark:bg-black dark:hover:bg-neutral-900" isLoading={isLoading}>Change Name</Button>
         </CardFooter>
       </Card>
     </form>

@@ -30,7 +30,7 @@ const Post: FC<PostProps> = ({
   const pRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="rounded-mb bg-white shadow">
+    <div className="rounded-md bg-white dark:bg-neutral-800 shadow-lg dark:shadow-zinc-800">
       <div className="flex px-6 py-4 justify-between">
         <PostVoteClient
           initialVotesAmt={votesAmt}
@@ -39,12 +39,12 @@ const Post: FC<PostProps> = ({
         />
 
         <div className="w-0 flex-1">
-          <div className="max-h-40 mt-1 text-xs text-gray-500">
+          <div className="max-h-40 mt-1 text-xs text-gray-500 dark:text-neutral-400">
             {subredditName ? (
               <>
                 <a
                   href={`/r/${subredditName}`}
-                  className="underline text-zinc-900 text-sm underline-offset-2"
+                  className="underline text-zinc-900 dark:text-neutral-400 text-sm underline-offset-2"
                 >
                   r/{subredditName}
                 </a>
@@ -61,7 +61,7 @@ const Post: FC<PostProps> = ({
           </div>
 
           <a href={`/r/${subredditName}/post/${post.id}`} className="">
-            <h1 className="text-2xl font-semibold py-2 leading-6 text-gray-900">
+            <h1 className="text-2xl font-semibold py-2 leading-6 text-gray-900 dark:text-gray-200">
               {post.title}
             </h1>
           </a>
@@ -78,7 +78,7 @@ const Post: FC<PostProps> = ({
         </div>
       </div>
 
-      <div className="bg-gray-50 z-20 text-sm p-4 sm:px-6">
+      <div className="bg-gray-50 dark:bg-zinc-900 z-20 text-sm p-4 sm:px-6 rounded-md">
         <a
           href={`/r/${subredditName}/post/${post.id}`}
           className="w-fit flex items-center gap-2"

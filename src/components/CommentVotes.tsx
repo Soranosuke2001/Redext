@@ -86,13 +86,13 @@ const CommentVotes: FC<CommentVoteProps> = ({
         aria-label="upvote"
       >
         <ArrowBigUp
-          className={cn("h-5 w-5 text-zinc-700", {
-            "text-emerald-500 fill-emerald-500": currentVote?.type === "UP",
+          className={cn("h-5 w-5 text-zinc-700 dark:text-neutral-400", {
+            "text-emerald-500 fill-emerald-500 dark:text-emerald-500": currentVote?.type === "UP",
           })}
         />
       </Button>
 
-      <p className="text-center py-2 font-medium text-sm text-zinc-900">
+      <p className="text-center py-2 font-medium text-sm text-zinc-900 dark:text-neutral-400">
         {votesAmt}
       </p>
       {/* Down Vote Button */}
@@ -103,8 +103,8 @@ const CommentVotes: FC<CommentVoteProps> = ({
         aria-label="downvote"
       >
         <ArrowBigDown
-          className={cn("h-5 w-5 text-zinc-700", {
-            "text-red-500 fill-red-500": currentVote?.type === "DOWN",
+          className={cn("h-5 w-5 text-zinc-700 dark:text-neutral-400", {
+            "text-red-500 fill-red-500 dark:text-red-500": currentVote?.type === "DOWN",
           })}
         />
       </Button>
