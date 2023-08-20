@@ -5,6 +5,7 @@ import { FC } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
@@ -12,16 +13,13 @@ import {
 import UserAvatar from "./UserAvatar";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import { useTheme } from "next-themes";
-import { Button } from "./ui/Button";
-import { Moon, Sun } from "lucide-react";
+import { LogOut, Navigation, Plus, Rss, Settings2 } from "lucide-react";
 
 interface UserAccountNavProps {
   user: Pick<User, "name" | "image" | "email">;
 }
 
 const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
-  const { setTheme, theme } = useTheme();
   return (
     <DropdownMenu>
       {/* Triggers the dropdown menu to open and close */}
@@ -36,12 +34,15 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
       </DropdownMenuTrigger>
 
       {/* The content to show when the dropdown menu is open */}
-      <DropdownMenuContent className="bg-white" align="end">
+      <DropdownMenuContent
+        className="bg-white dark:bg-black dark:border-neutral-600"
+        align="end"
+      >
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
             {user.name && <p className="font-medium">{user.name}</p>}
             {user.email && (
-              <p className="w-[200px] truncate text-sm text-zinc-700">
+              <p className="w-[200px] truncate text-sm text-zinc-700 dark:text-neutral-400">
                 {user.email}
               </p>
             )}
@@ -51,13 +52,28 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
 
         {/* List of dropdown menu items */}
         <DropdownMenuItem asChild>
-          <Link href="/">Feed</Link>
+          <Link href="/" className="font-medium gap-2">
+            <Rss className="w-4 h-4 ml-1" />
+            Feed
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="/r/create">Create Community</Link>
+          <Link href="/r/create" className="font-medium gap-2">
+            <Plus className="w-5 h-5 rounded-md" />
+            Create Community
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="/settings">Settings</Link>
+          <Link href="/r/explore" className="font-medium gap-2">
+            <Navigation className="w-4 h-4 mr-1" />
+            Explore Communities
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/settings" className="font-medium gap-2">
+            <Settings2 className="w-5 h-5" />
+            Settings
+          </Link>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
@@ -71,7 +87,10 @@ const UserAccountNav: FC<UserAccountNavProps> = ({ user }) => {
           }}
           className="cursor-pointer"
         >
-          Sign Out
+          <div className="flex gap-2">
+            <LogOut className="w-5 h-5" />
+            Sign Out
+          </div>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

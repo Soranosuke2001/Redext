@@ -15,11 +15,11 @@ const SignUp = () => {
 
         {/* Sign In Form */}
         <UserAuthForm />
-        <p className="px-8 text-center text-sm text-zinc-700">
+        <p className="px-8 text-center text-sm text-zinc-700 dark:text-zinc-400">
           Already a Redextor?{" "}
           <Link
             href="/sign-in"
-            className="hover:text-zinc-800 text-sm underline underline-offset-4"
+            className="hover:text-zinc-800 dark:hover:text-zinc-300 text-sm underline underline-offset-4"
           >
             Sign In
           </Link>

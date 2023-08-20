@@ -74,16 +74,16 @@ const Layout = async ({
           <div className="flex flex-col col-span-2 space-y-6">{children}</div>
 
           {/* Info Side Bar */}
-          <div className="hidden md:block overflow-hidden h-fit rounded-lg border border-gray-200 order-first md:order-last">
+          <div className="hidden md:block overflow-hidden h-fit rounded-lg border border-gray-200 dark:border-neutral-600 order-first md:order-last">
             <div className="px-6 py-4">
               <p className="font-semibold py-3">About r/{subreddit.name}</p>
             </div>
 
             {/* Community creation date */}
-            <dl className="divide-y divide-gray-100 px-6 py-4 text-sm leading-6 bg-white">
+            <dl className="divide-y divide-gray-100 px-6 py-4 text-sm leading-6 bg-white dark:bg-neutral-800">
               <div className="flex justify-between gap-x-4 py-3">
-                <dt className="text-gray-500">Created</dt>
-                <dd className="text-gray-700">
+                <dt className="text-gray-500 dark:text-neutral-300">Created</dt>
+                <dd className="text-gray-700 dark:text-neutral-300">
                   <time dateTime={subreddit.createdAt.toDateString()}>
                     {format(subreddit.createdAt, "MMMM d, yyyy")}
                   </time>
@@ -92,24 +92,24 @@ const Layout = async ({
 
               {/* Number of community members */}
               <div className="flex justify-between gap-x-4 py-3">
-                <dt className="text-gray-500">Members</dt>
+                <dt className="text-gray-500 dark:text-neutral-300">Members</dt>
                 <dd className="text-gray-700">
-                  <div className="text-gray-900">{memberCount}</div>
+                  <div className="text-gray-900 dark:text-neutral-300">{memberCount}</div>
                 </dd>
               </div>
 
               {/* Number of posts created */}
               <div className="flex justify-between gap-x-4 py-3">
-                <dt className="text-gray-500">Posts</dt>
+                <dt className="text-gray-500 dark:text-neutral-300">Posts</dt>
                 <dd className="text-gray-700">
-                  <div className="text-gray-900">{postCount}</div>
+                  <div className="text-gray-900 dark:text-neutral-300">{postCount}</div>
                 </dd>
               </div>
 
               {/* If the user logged in is the community creator */}
               {subreddit.creatorId === session?.user.id ? (
                 <div className="flex justify-between gap-x-4 py-3">
-                  <p className="text-gray-500">
+                  <p className="text-gray-500 dark:text-neutral-300">
                     You are the community creator!
                   </p>
                 </div>
@@ -127,7 +127,7 @@ const Layout = async ({
               <Link
                 className={buttonVariants({
                   variant: "outline",
-                  className: "w-full mb-6",
+                  className: "w-full mb-6 dark:border-none",
                 })}
                 href={`r/${slug}/submit`}
               >

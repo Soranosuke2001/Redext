@@ -91,13 +91,13 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
         aria-label="upvote"
       >
         <ArrowBigUp
-          className={cn("h-5 w-5 text-zinc-700", {
-            "text-emerald-500 fill-emerald-500": currentVote === "UP",
+          className={cn("h-5 w-5 text-zinc-700 dark:text-gray-500", {
+            "text-emerald-500 fill-emerald-500 dark:text-emerald-500": currentVote === "UP",
           })}
         />
       </Button>
 
-      <p className="text-center py-2 font-medium text-sm text-zinc-900">
+      <p className="text-center py-2 font-medium text-sm text-zinc-900 dark:text-white">
         {votesAmt}
       </p>
       {/* Down Vote Button */}
@@ -108,8 +108,8 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
         aria-label="downvote"
       >
         <ArrowBigDown
-          className={cn("h-5 w-5 text-zinc-700", {
-            "text-red-500 fill-red-500": currentVote === "DOWN",
+          className={cn("h-5 w-5 text-zinc-700 dark:text-gray-500", {
+            "text-red-500 fill-red-500 dark:text-red-500": currentVote === "DOWN",
           })}
         />
       </Button>
