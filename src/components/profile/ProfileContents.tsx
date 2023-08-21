@@ -53,6 +53,14 @@ const ProfileContents: FC<ProfileContentsProps> = ({
     // Checking if the data exists
     if (!subbedSubreddits) return <div>No Data Available</div>;
 
+    // Checking if there is a list of joined communities
+    if (subbedSubreddits.length === 0)
+      return (
+        <div className="flex justify-center pt-10">
+          The user has not joined any communities
+        </div>
+      );
+
     return <CommunityCard subscriptions={subbedSubreddits} />;
   } else if (navOption === "Upvotes") {
     // Checking if the data exists
