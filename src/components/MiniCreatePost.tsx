@@ -18,8 +18,8 @@ const MiniCreatePost: FC<MiniCreatePostProps> = ({ session }) => {
 
   return (
     <li className="overflow-hidden rounded-md bg-white dark:bg-neutral-800 shadow list-none">
-      <div className="h-max px-6 py-4 flex justify-between gap-6">
-        <div className="relative">
+      <div className="h-max md:px-6 py-4 flex justify-between gap-2 md:gap-6">
+        <div className="relative ml-2">
           <UserAvatar
             user={{
               name: session?.user.name || null,
@@ -35,11 +35,13 @@ const MiniCreatePost: FC<MiniCreatePostProps> = ({ session }) => {
           readOnly
           onClick={() => router.push(pathname + "/submit")}
           placeholder="Create Post"
+          className="mr-2 md:mr-0"
         />
 
         <Button
           variant="ghost"
           onClick={() => router.push(pathname + "/submit")}
+          className="hidden md:block"
         >
           <ImageIcon className="text-zinc-600 dark:text-neutral-400" />
         </Button>
@@ -47,6 +49,7 @@ const MiniCreatePost: FC<MiniCreatePostProps> = ({ session }) => {
         <Button
           variant="ghost"
           onClick={() => router.push(pathname + "/submit")}
+          className="hidden md:block"
         >
           <Link2 className="text-zinc-600 dark:text-neutral-400" />
         </Button>
