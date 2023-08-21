@@ -21,18 +21,18 @@ const CommunityCard = ({ subscriptions }: CommunityCardProps) => {
         return (
           <div
             key={subscription.subredditId}
-            className="flex justify-between border border-solid border-gray-200 rounded-lg m-3 bg-gray-100"
+            className="flex justify-between border border-solid border-gray-200 dark:border-neutral-600 rounded-lg m-3 bg-gray-100 dark:bg-neutral-800"
           >
             {/* Left Side */}
             <div className="flex flex-col m-3">
-              <span className="text-sm text-zinc-600">
+              <span className="text-sm text-zinc-600 dark:text-neutral-400">
                 {`Created By: u/${subscription.subredditCreator}`}
               </span>
               <span className="text-4xl font-sans tracking-wide">{`r/${subscription.subredditName}`}</span>
               <div className="my-5" />
               <div className="flex">
-                <dt className="text-zinc-700">Creation Date:</dt>
-                <dd className="text-zinc-700 ml-1">
+                <dt className="text-zinc-700 dark:text-neutral-400">Creation Date:</dt>
+                <dd className="text-zinc-700 dark:text-neutral-400 ml-1">
                   <time dateTime={creationDate.toDateString()}>
                     {format(creationDate, "MMMM d, yyyy")}
                   </time>
@@ -44,7 +44,7 @@ const CommunityCard = ({ subscriptions }: CommunityCardProps) => {
             <div className="flex flex-col justify-between m-3">
               <a
                 href={`/r/${subscription.subredditName}`}
-                className="border-2 border-solid border-black p-3 bg-gray-900 text-slate-100 rounded-lg"
+                className="border-2 border-solid border-black p-3 bg-gray-900 dark:bg-black dark:hover:bg-neutral-900 text-slate-100 rounded-lg"
               >
                 View Community
               </a>

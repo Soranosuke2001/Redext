@@ -30,22 +30,22 @@ const VotedPosts: FC<VotedPostsProps> = ({ posts }) => {
     <ul className="flex flex-col col-span-2 space-y-6">
       {posts.map((post) => {
         return (
-          <div className="rounded-mb bg-white shadow" key={post.id}>
+          <div className="rounded-md bg-white dark:bg-neutral-800 shadow-lg dark:shadow-zinc-800" key={post.id}>
             <div className="flex px-6 py-4 justify-between">
               <div className="w-0 flex-1">
-                <div className="max-h-40 mt-1 text-xs text-gray-500">
+                <div className="max-h-40 mt-1 text-xs text-zinc-900 dark:text-neutral-400">
                   {post.subredditName ? (
                     <>
                       <a
                         href={`/r/${post.subredditName}`}
-                        className="underline text-zinc-900 text-sm underline-offset-2"
+                        className="underline text-sm underline-offset-2"
                       >
                         r/{post.subredditName}
                       </a>
                       <span className="px-1">•</span>
                     </>
                   ) : null}
-                  <span className="">
+                  <span>
                     Posted by u/
                     <Link href={`/user/${post.creatorId}`}>{post.creator}</Link>
                   </span>{" "}
@@ -54,9 +54,8 @@ const VotedPosts: FC<VotedPostsProps> = ({ posts }) => {
 
                 <a
                   href={`/r/${post.subredditName}/post/${post.id}`}
-                  className=""
                 >
-                  <h1 className="text-2xl font-semibold py-2 leading-6 text-gray-900">
+                  <h1 className="text-2xl font-semibold py-2 leading-6 text-gray-900 dark:text-white">
                     {post.title}
                   </h1>
                 </a>
@@ -73,7 +72,7 @@ const VotedPosts: FC<VotedPostsProps> = ({ posts }) => {
               </div>
             </div>
 
-            <div className="bg-gray-50 z-20 text-sm p-4 sm:px-6">
+            <div className="bg-gray-50 dark:bg-zinc-900 rounded-md z-20 text-sm p-4 sm:px-6">
               <a
                 href={`/r/${post.subredditName}/post/${post.id}`}
                 className="w-fit flex items-center gap-2"
