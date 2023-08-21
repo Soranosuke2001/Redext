@@ -31,7 +31,7 @@ const Post: FC<PostProps> = ({
 
   return (
     <div className="rounded-md bg-white dark:bg-neutral-800 shadow-lg dark:shadow-zinc-800">
-      <div className="flex px-6 py-4 justify-between">
+      <div className="flex px-2 md:px-6 py-4 justify-between">
         <PostVoteClient
           initialVotesAmt={votesAmt}
           postId={post.id}
@@ -39,7 +39,7 @@ const Post: FC<PostProps> = ({
         />
 
         <div className="w-0 flex-1">
-          <div className="max-h-40 mt-1 text-xs text-gray-500 dark:text-neutral-400">
+          <div className="max-h-40 mt-1 text-xs text-gray-500 dark:text-neutral-400 flex">
             {subredditName ? (
               <>
                 <a
@@ -51,7 +51,7 @@ const Post: FC<PostProps> = ({
                 <span className="px-1">•</span>
               </>
             ) : null}
-            <span className="">
+            <span className="hidden md:block">
               Posted by u/
               <Link href={`/user/${post.author.id}`}>
                 {post.author.username}

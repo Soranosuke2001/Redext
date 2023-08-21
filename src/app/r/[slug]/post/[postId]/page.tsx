@@ -46,8 +46,10 @@ const page = async ({ params }: PageProps) => {
   if (!post && !cachedPost) return notFound();
 
   return (
-    <div className="">
-      <div className="flex h-full flex-col sm:flex-row items-center sm:items-start justify-between">
+    <>
+      <div className="flex h-full sm:items-start justify-between">
+        <div>
+
         <Suspense fallback={<PostVoteShell />}>
           {/* @ts-expect-error server component */}
           <PostVoteServer
@@ -64,6 +66,7 @@ const page = async ({ params }: PageProps) => {
             }}
           />
         </Suspense>
+        </div>
 
         <div className="sm:w-0 w-full flex-1 bg-white dark:bg-neutral-800 p-4 rounded-sm">
           {/* Post Details */}
@@ -88,7 +91,7 @@ const page = async ({ params }: PageProps) => {
           </Suspense>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

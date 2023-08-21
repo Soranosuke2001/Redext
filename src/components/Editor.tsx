@@ -18,7 +18,6 @@ interface EditorProps {
 }
 
 const Editor: FC<EditorProps> = ({ subredditId }) => {
-
   // Using React useForm to handle creating a post
   const {
     register,
@@ -52,15 +51,16 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
     const LinkTool = (await import("@editorjs/link")).default;
     const InlineCode = (await import("@editorjs/inline-code")).default;
     const ImageTool = (await import("@editorjs/image")).default;
-    
+
     if (!ref.current) {
       const editor = new EditorJS({
         holder: "editor",
         onReady() {
           ref.current = editor;
         },
-        placeholder: "Type here to write your post...",
+        placeholder: `Type here!`,
         inlineToolbar: true,
+        hideToolbar: false,
         data: {
           blocks: [],
         },
@@ -78,7 +78,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
               uploader: {
                 async uploadByFile(file: File) {
                   const [res] = await uploadFiles([file], "imageUploader");
-                  
+
                   return {
                     success: 1,
                     file: {
@@ -195,7 +195,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
   const { ref: titleRef, ...rest } = register("title");
 
   return (
-    <div className="w-full p-4 bg-zinc-50 rounded-lg border border-zinc-200">
+    <div className="w-full p-4 bg-zinc-50 dark:bg-neutral-600 rounded-lg border border-zinc-200 dark:border-zinc-700">
       <form
         id="subreddit-post-form"
         className="w-fit"
@@ -211,7 +211,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
             }}
             {...rest}
             placeholder="Title"
-            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
+            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none dark:placeholder:text-gray-400"
           />
           <div id="editor" className="min-h-[500px]" />
         </div>

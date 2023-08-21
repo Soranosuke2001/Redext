@@ -68,73 +68,75 @@ const Layout = async ({
   });
 
   return (
-    <div className="sm:container max-w-7xl mx-auto h-full pt-12">
-      <div className="">
-        <div className="grid gri-cols-1 md:grid-cols-3 gap-y-4 md:gap-x-4 py-6">
-          <div className="flex flex-col col-span-2 space-y-6">{children}</div>
+    <div className="sm:container max-w-7xl md:mx-auto h-full md:pt-12">
+      <div className="grid gri-cols-1 md:grid-cols-3 gap-y-4 md:gap-x-4 py-6">
+        <div className="flex flex-col col-span-2 space-y-6">{children}</div>
 
-          {/* Info Side Bar */}
-          <div className="hidden md:block overflow-hidden h-fit rounded-lg border border-gray-200 dark:border-neutral-600 order-first md:order-last">
-            <div className="px-6 py-4">
-              <p className="font-semibold py-3">About r/{subreddit.name}</p>
+        {/* Info Side Bar */}
+        <div className="hidden md:block overflow-hidden h-fit rounded-lg border border-gray-200 dark:border-neutral-600 order-first md:order-last">
+          <div className="px-6 py-4">
+            <p className="font-semibold py-3">About r/{subreddit.name}</p>
+          </div>
+
+          {/* Community creation date */}
+          <dl className="divide-y divide-gray-100 px-6 py-4 text-sm leading-6 bg-white dark:bg-neutral-800">
+            <div className="flex justify-between gap-x-4 py-3">
+              <dt className="text-gray-500 dark:text-neutral-300">Created</dt>
+              <dd className="text-gray-700 dark:text-neutral-300">
+                <time dateTime={subreddit.createdAt.toDateString()}>
+                  {format(subreddit.createdAt, "MMMM d, yyyy")}
+                </time>
+              </dd>
             </div>
 
-            {/* Community creation date */}
-            <dl className="divide-y divide-gray-100 px-6 py-4 text-sm leading-6 bg-white dark:bg-neutral-800">
-              <div className="flex justify-between gap-x-4 py-3">
-                <dt className="text-gray-500 dark:text-neutral-300">Created</dt>
-                <dd className="text-gray-700 dark:text-neutral-300">
-                  <time dateTime={subreddit.createdAt.toDateString()}>
-                    {format(subreddit.createdAt, "MMMM d, yyyy")}
-                  </time>
-                </dd>
-              </div>
-
-              {/* Number of community members */}
-              <div className="flex justify-between gap-x-4 py-3">
-                <dt className="text-gray-500 dark:text-neutral-300">Members</dt>
-                <dd className="text-gray-700">
-                  <div className="text-gray-900 dark:text-neutral-300">{memberCount}</div>
-                </dd>
-              </div>
-
-              {/* Number of posts created */}
-              <div className="flex justify-between gap-x-4 py-3">
-                <dt className="text-gray-500 dark:text-neutral-300">Posts</dt>
-                <dd className="text-gray-700">
-                  <div className="text-gray-900 dark:text-neutral-300">{postCount}</div>
-                </dd>
-              </div>
-
-              {/* If the user logged in is the community creator */}
-              {subreddit.creatorId === session?.user.id ? (
-                <div className="flex justify-between gap-x-4 py-3">
-                  <p className="text-gray-500 dark:text-neutral-300">
-                    You are the community creator!
-                  </p>
+            {/* Number of community members */}
+            <div className="flex justify-between gap-x-4 py-3">
+              <dt className="text-gray-500 dark:text-neutral-300">Members</dt>
+              <dd className="text-gray-700">
+                <div className="text-gray-900 dark:text-neutral-300">
+                  {memberCount}
                 </div>
-              ) : null}
+              </dd>
+            </div>
 
-              {/* Button to join or leave the community */}
-              {subreddit.creatorId !== session?.user.id ? (
-                <SubscribeLeaveToggle
-                  subredditId={subreddit.id}
-                  subredditName={subreddit.name}
-                  isSubscribed={isSubscribed}
-                ></SubscribeLeaveToggle>
-              ) : null}
+            {/* Number of posts created */}
+            <div className="flex justify-between gap-x-4 py-3">
+              <dt className="text-gray-500 dark:text-neutral-300">Posts</dt>
+              <dd className="text-gray-700">
+                <div className="text-gray-900 dark:text-neutral-300">
+                  {postCount}
+                </div>
+              </dd>
+            </div>
 
-              <Link
-                className={buttonVariants({
-                  variant: "outline",
-                  className: "w-full mb-6 dark:border-none",
-                })}
-                href={`r/${slug}/submit`}
-              >
-                Create Post
-              </Link>
-            </dl>
-          </div>
+            {/* If the user logged in is the community creator */}
+            {subreddit.creatorId === session?.user.id ? (
+              <div className="flex justify-between gap-x-4 py-3">
+                <p className="text-gray-500 dark:text-neutral-300">
+                  You are the community creator!
+                </p>
+              </div>
+            ) : null}
+
+            {/* Button to join or leave the community */}
+            {subreddit.creatorId !== session?.user.id ? (
+              <SubscribeLeaveToggle
+                subredditId={subreddit.id}
+                subredditName={subreddit.name}
+                isSubscribed={isSubscribed}
+              ></SubscribeLeaveToggle>
+            ) : null}
+
+            <Link
+              className={buttonVariants({
+                variant: "outline",
+                className: "w-full mb-6 dark:border-none",
+              })}
+              href={`r/${slug}/submit`}
+            >
+              Create Post
+            </Link>
+          </dl>
         </div>
       </div>
     </div>
