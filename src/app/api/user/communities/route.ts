@@ -5,7 +5,7 @@ export async function GET(req: Request) {
     const url = new URL(req.url);
     const userId = url.searchParams.get("userId");
 
-    // If the user ID is missing 
+    // If the user ID is missing
     if (!userId) return new Response("Invalid Query", { status: 400 });
 
     // Find the user ID in the database
@@ -41,6 +41,7 @@ export async function GET(req: Request) {
         return {
           subredditId: subreddit.subredditId,
           subredditName: subreddit.subreddit.name,
+          subredditCreatorId: subreddit.subreddit.Creator?.id,
           subredditCreator: subreddit.subreddit.Creator?.username,
           subredditCreationDate: subreddit.subreddit.createdAt,
           subredditMemberCount: subreddit.subreddit._count.subscribers,
