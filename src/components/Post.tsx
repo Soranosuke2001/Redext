@@ -51,7 +51,7 @@ const Post: FC<PostProps> = ({
                 <span className="px-1">•</span>
               </>
             ) : null}
-            <span className="hidden md:block">
+            <span className="hidden md:block mr-1">
               Posted by u/
               <Link href={`/user/${post.author.id}`}>
                 {post.author.username}
