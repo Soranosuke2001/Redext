@@ -1,10 +1,12 @@
 import { format } from "date-fns";
 import { Users } from "lucide-react";
+import Link from "next/link";
 
 interface CommunityCardProps {
   subscriptions: {
     subredditId: string;
     subredditName: string;
+    subredditCreatorId: string | null | undefined;
     subredditCreator: string | null | undefined;
     subredditCreationDate: Date;
     subredditMemberCount: number;
@@ -25,13 +27,18 @@ const CommunityCard = ({ subscriptions }: CommunityCardProps) => {
           >
             {/* Left Side */}
             <div className="flex flex-col m-3">
-              <span className="text-sm text-zinc-600 dark:text-neutral-400">
+              <Link
+                href={`/user/${subscription.subredditCreatorId}`}
+                className="text-sm text-zinc-600 dark:text-neutral-400"
+              >
                 {`Created By: u/${subscription.subredditCreator}`}
-              </span>
+              </Link>
               <span className="text-4xl font-sans tracking-wide">{`r/${subscription.subredditName}`}</span>
               <div className="my-5" />
               <div className="flex">
-                <dt className="text-zinc-700 dark:text-neutral-400 hidden md:block">Creation Date:</dt>
+                <dt className="text-zinc-700 dark:text-neutral-400 hidden md:block">
+                  Creation Date:
+                </dt>
                 <dd className="text-zinc-700 dark:text-neutral-400 md:ml-1">
                   <time dateTime={creationDate.toDateString()}>
                     {format(creationDate, "MMMM d, yyyy")}

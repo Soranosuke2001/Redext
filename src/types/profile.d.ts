@@ -10,6 +10,7 @@ export type subbedSubreddit = {
     Subscription: {
       subredditId: string;
       subredditName: string;
+      subredditCreatorId: string | null | undefined;
       subredditCreator: string | null | undefined;
       subredditCreationDate: Date;
       subredditMemberCount: number;

@@ -55,45 +55,50 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subredditName }) => {
 
   return (
     <ul className="flex flex-col col-span-2 space-y-6">
-      {posts.map((post, index) => {
-        const votesCount = post.votes.reduce((acc, vote) => {
-          if (vote.type === "UP") return acc + 1;
+      {posts.length > 0 ? (
+        <>
+          {posts.map((post, index) => {
+            const votesCount = post.votes.reduce((acc, vote) => {
+              if (vote.type === "UP") return acc + 1;
 
-          if (vote.type === "DOWN") return acc - 1;
+              if (vote.type === "DOWN") return acc - 1;
 
-          return acc;
-        }, 0);
+              return acc;
+            }, 0);
 
-        const currentVote = post.votes.find(
-          (vote) => vote.userId === session?.user.id
-        );
+            const currentVote = post.votes.find(
+              (vote) => vote.userId === session?.user.id
+            );
 
-        if (index === posts.length - 1) {
-          return (
-            <li key={post.id} ref={ref}>
-              <Post
-                currentVote={currentVote}
-                votesAmt={votesCount}
-                subredditName={post.subreddit.name}
-                post={post}
-                commentAmt={post.comments.length}
-              />
-            </li>
-          );
-        } else {
-          return (
-            <Post
-              key={post.id}
-              currentVote={currentVote}
-              votesAmt={votesCount}
-              subredditName={post.subreddit.name}
-              post={post}
-              commentAmt={post.comments.length}
-            />
-          );
-        }
-      })}
-
+            if (index === posts.length - 1) {
+              return (
+                <li key={post.id} ref={ref}>
+                  <Post
+                    currentVote={currentVote}
+                    votesAmt={votesCount}
+                    subredditName={post.subreddit.name}
+                    post={post}
+                    commentAmt={post.comments.length}
+                  />
+                </li>
+              );
+            } else {
+              return (
+                <Post
+                  key={post.id}
+                  currentVote={currentVote}
+                  votesAmt={votesCount}
+                  subredditName={post.subreddit.name}
+                  post={post}
+                  commentAmt={post.comments.length}
+                />
+              );
+            }
+          })}
+        </>
+      ) : (
+        <div className="">Join a community to see your feed!</div>
+      )}
       {/* Loading animation when infinite scrolling is in effect */}
       {isFetchingNextPage && (
         <li className="flex justify-center">

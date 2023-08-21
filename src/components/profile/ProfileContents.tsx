@@ -9,6 +9,7 @@ interface ProfileContentsProps {
     | {
         subredditId: string;
         subredditName: string;
+        subredditCreatorId: string | null | undefined;
         subredditCreator: string | null | undefined;
         subredditCreationDate: Date;
         subredditMemberCount: number;
@@ -52,10 +53,26 @@ const ProfileContents: FC<ProfileContentsProps> = ({
     // Checking if the data exists
     if (!subbedSubreddits) return <div>No Data Available</div>;
 
+    // Checking if there is a list of joined communities
+    if (subbedSubreddits.length === 0)
+      return (
+        <div className="flex justify-center pt-10">
+          The user has not joined any communities
+        </div>
+      );
+
     return <CommunityCard subscriptions={subbedSubreddits} />;
   } else if (navOption === "Upvotes") {
     // Checking if the data exists
     if (!upvotePosts) return <div>No Data Available</div>;
+
+    // Checking if there is a list of upvoted posts
+    if (upvotePosts.length === 0)
+      return (
+        <div className="flex justify-center pt-10">
+          The user has not upvoted any posts
+        </div>
+      );
 
     return <VotedPosts posts={upvotePosts} />;
   } else {
@@ -65,6 +82,13 @@ const ProfileContents: FC<ProfileContentsProps> = ({
     // Checking if the data exists
     if (!downvotePosts) return <div>No Data Available</div>;
 
+    // Checking if there is a list of downvoted posts
+    if (downvotePosts.length === 0)
+      return (
+        <div className="flex justify-center pt-10">
+          The user has not downvoted any posts
+        </div>
+      );
     return <VotedPosts posts={downvotePosts} />;
   }
 };

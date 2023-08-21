@@ -13,7 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Prisma, Subreddit } from "@prisma/client";
 import { usePathname, useRouter } from "next/navigation";
-import { Users } from "lucide-react";
+import { Loader2, Users } from "lucide-react";
 import debounce from "lodash.debounce";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 
@@ -81,10 +81,11 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
         {userInput.length > 0 && (
           <CommandList className="absolute bg-slate-50 dark:bg-neutral-700 top-full inset-x-0 shadow rounded-md mt-1">
             {isFetching ? (
-              <div className="">Loading</div>
+              <div className="flex justify-center items-center h-20">
+                <Loader2 className="w-6 h-6 text-zinc-500 dark:text-neutral-200 animate-spin" />
+              </div>
             ) : (
               <>
-                {isFetched && <CommandEmpty>No Results Found</CommandEmpty>}
                 {(queryResults?.length ?? 0) > 0 ? (
                   <CommandGroup heading="Communities">
                     {queryResults?.map((subreddit) => (
@@ -101,7 +102,9 @@ const SearchBar: FC<SearchBarProps> = ({}) => {
                       </CommandItem>
                     ))}
                   </CommandGroup>
-                ) : null}
+                ) : (
+                  <CommandEmpty>No Results Found</CommandEmpty>
+                )}
               </>
             )}
           </CommandList>
