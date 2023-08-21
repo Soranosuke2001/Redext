@@ -31,8 +31,8 @@ const CommunityCard = ({ subscriptions }: CommunityCardProps) => {
               <span className="text-4xl font-sans tracking-wide">{`r/${subscription.subredditName}`}</span>
               <div className="my-5" />
               <div className="flex">
-                <dt className="text-zinc-700 dark:text-neutral-400">Creation Date:</dt>
-                <dd className="text-zinc-700 dark:text-neutral-400 ml-1">
+                <dt className="text-zinc-700 dark:text-neutral-400 hidden md:block">Creation Date:</dt>
+                <dd className="text-zinc-700 dark:text-neutral-400 md:ml-1">
                   <time dateTime={creationDate.toDateString()}>
                     {format(creationDate, "MMMM d, yyyy")}
                   </time>
@@ -44,9 +44,9 @@ const CommunityCard = ({ subscriptions }: CommunityCardProps) => {
             <div className="flex flex-col justify-between m-3">
               <a
                 href={`/r/${subscription.subredditName}`}
-                className="border-2 border-solid border-black p-3 bg-gray-900 dark:bg-black dark:hover:bg-neutral-900 text-slate-100 rounded-lg"
+                className="flex border-2 border-solid border-black p-3 bg-gray-900 dark:bg-black dark:hover:bg-neutral-900 text-slate-100 rounded-lg"
               >
-                View Community
+                View<span className="hidden md:block ml-1">Community</span>
               </a>
 
               <div className="flex justify-end">

@@ -7,6 +7,7 @@ import { Skeleton } from "../ui/Skeleton";
 import UserProfile from "./UserProfile";
 import { Separator } from "../ui/Separator";
 import MiniNavbar from "./MiniNavbar";
+import MiniNavbarDropDown from "./MiniNavbarDropDown";
 import type { subbedSubreddit, votes } from "@/types/profile";
 import ProfileContents from "./ProfileContents";
 
@@ -19,53 +20,54 @@ const UserInfo = ({ userId }: UserInfoProps) => {
   const [firstLoad, setFirstLoad] = useState<boolean>(true);
 
   // Query to fetch the subbed subreddits and upvoted/downvoted posts
-  const [userInfoQuery, joinedCommunitiesQuery, upvotesQuery, downvotesQuery] = useQueries({
-    queries: [
-      {
-        queryKey: ["userInfo"],
-        queryFn: async () => {
-          const { data } = await axios.get(`/api/user?userId=${userId}`);
-          setFirstLoad(false);
+  const [userInfoQuery, joinedCommunitiesQuery, upvotesQuery, downvotesQuery] =
+    useQueries({
+      queries: [
+        {
+          queryKey: ["userInfo"],
+          queryFn: async () => {
+            const { data } = await axios.get(`/api/user?userId=${userId}`);
+            setFirstLoad(false);
 
-          return data;
+            return data;
+          },
+          enabled: firstLoad === true,
         },
-        enabled: firstLoad === true,
-      },
-      {
-        queryKey: ["joinedCommunities"],
-        queryFn: async () => {
-          const { data } = (await axios.get(
-            `/api/user/communities?userId=${userId}`
-          )) as subbedSubreddit;
+        {
+          queryKey: ["joinedCommunities"],
+          queryFn: async () => {
+            const { data } = (await axios.get(
+              `/api/user/communities?userId=${userId}`
+            )) as subbedSubreddit;
 
-          return data;
+            return data;
+          },
+          enabled: navOption === "Joined Communities",
         },
-        enabled: navOption === "Joined Communities",
-      },
-      {
-        queryKey: ["upvotes"],
-        queryFn: async () => {
-          const { data } = (await axios.get(
-            `/api/user/votes?userId=${userId}&voteType=UP`
-          )) as votes;
+        {
+          queryKey: ["upvotes"],
+          queryFn: async () => {
+            const { data } = (await axios.get(
+              `/api/user/votes?userId=${userId}&voteType=UP`
+            )) as votes;
 
-          return data;
+            return data;
+          },
+          enabled: navOption === "Upvotes",
         },
-        enabled: navOption === "Upvotes",
-      },
-      {
-        queryKey: ["downvotes"],
-        queryFn: async () => {
-          const { data } = (await axios.get(
-            `/api/user/votes?userId=${userId}&voteType=DOWN`
-          )) as votes;
+        {
+          queryKey: ["downvotes"],
+          queryFn: async () => {
+            const { data } = (await axios.get(
+              `/api/user/votes?userId=${userId}&voteType=DOWN`
+            )) as votes;
 
-          return data;
+            return data;
+          },
+          enabled: navOption === "Downvotes",
         },
-        enabled: navOption === "Downvotes",
-      },
-    ],
-  });
+      ],
+    });
 
   return (
     <>
@@ -95,11 +97,21 @@ const UserInfo = ({ userId }: UserInfoProps) => {
         <Separator className="my-8 bg-slate-400" />
       </div>
 
-      <MiniNavbar
-        isFetching={joinedCommunitiesQuery.isFetching}
-        setNavOption={setNavOption}
-        navOption={navOption}
-      />
+      <div className="hidden md:block">
+        <MiniNavbar
+          isFetching={joinedCommunitiesQuery.isFetching}
+          setNavOption={setNavOption}
+          navOption={navOption}
+        />
+      </div>
+
+      <div className="md:hidden">
+        <MiniNavbarDropDown
+          isFetching={joinedCommunitiesQuery.isFetching}
+          setNavOption={setNavOption}
+          navOption={navOption}
+        />
+      </div>
 
       {/* Contents */}
       <div className="my-8">
