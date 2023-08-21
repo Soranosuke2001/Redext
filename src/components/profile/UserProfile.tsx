@@ -29,10 +29,10 @@ const UserProfile = ({
 
         {/* Username and Account Creation Date */}
         <div className="ml-5 md:ml-10">
-          <p className="text-lg md:text-3xl text-zinc-900">{`u/${username}`}</p>
+          <p className="text-lg md:text-3xl text-zinc-900 dark:text-white">{`u/${username}`}</p>
           <div className="md:flex md:mt-2">
-            <dt className="text-md text-zinc-500">Member Since:</dt>
-            <dd className="text-md text-zinc-500 ml-2">
+            <dt className="text-md text-zinc-500 dark:text-gray-400">Member Since:</dt>
+            <dd className="text-md text-zinc-500 dark:text-gray-400 md:ml-2">
               <time dateTime={joinedDate.toDateString()}>
                 {format(joinedDate, "MMMM d, yyyy")}
               </time>
