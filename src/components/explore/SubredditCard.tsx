@@ -23,7 +23,7 @@ const SubredditCard: FC<SubredditCardProps> = ({ community }) => {
         >
           {`Created By: u/${community.subredditCreator}`}
         </Link>
-        <span className="text-4xl font-sans tracking-wide">{`r/${community.subredditName}`}</span>
+        <span className="text-2xl md:text-4xl font-sans tracking-wide truncate">{`r/${community.subredditName}`}</span>
         <div className="my-5" />
         <div className="flex">
           <dt className="text-zinc-700 dark:text-neutral-400 hidden md:block">
