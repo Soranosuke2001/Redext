@@ -33,7 +33,7 @@ const CommunityCard = ({ subscriptions }: CommunityCardProps) => {
               >
                 {`Created By: u/${subscription.subredditCreator}`}
               </Link>
-              <span className="text-4xl font-sans tracking-wide">{`r/${subscription.subredditName}`}</span>
+              <span className="text-2xl md:text-4xl font-sans tracking-wide">{`r/${subscription.subredditName}`}</span>
               <div className="my-5" />
               <div className="flex">
                 <dt className="text-zinc-700 dark:text-neutral-400 hidden md:block">
