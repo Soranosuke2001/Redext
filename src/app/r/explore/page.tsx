@@ -1,16 +1,19 @@
+import CommunityList from "@/components/explore/CommunityList";
+import { Navigation } from "lucide-react";
 import { FC } from "react";
 
 interface pageProps {}
 
 const page: FC<pageProps> = ({}) => {
   return (
-    <div className="flex flex-col h-screen w-full items-center">
-      <h1 className="text-5xl pt-32">Feature not complete</h1>
-      <br />
-      <p className="">
-        Apologies. We are still developing this feature. Please try again later.
-      </p>
-    </div>
+    <>
+      <h1 className="flex items-center font-bold text-3xl md:text-4xl">
+        <Navigation className="mr-4" />
+        Explore
+      </h1>
+      {/* @ts-expect-error server component */}
+      <CommunityList />
+    </>
   );
 };
 
