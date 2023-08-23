@@ -31,3 +31,12 @@ export type votes = {
     commentCount: number;
   }[];
 };
+
+export type subredditParams = {
+  subredditId: string;
+  subredditName: string;
+  subredditCreatorId: string | null | undefined;
+  subredditCreator: string | null | undefined;
+  subredditCreationDate: Date;
+  subredditMemberCount: number;
+}
