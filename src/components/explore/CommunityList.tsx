@@ -1,6 +1,6 @@
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { db } from "@/lib/db";
-import SubredditCard from "./SubredditCard";
+import SubredditList from "./SubredditList";
 
 const CommunityList = async () => {
   // Fetch a list of communities
@@ -28,9 +28,7 @@ const CommunityList = async () => {
     };
   });
 
-  console.log(communities[0]);
-
-  return <SubredditCard communities={communities} />;
+  return <SubredditList communities={communities} />;
 };
 
 export default CommunityList;

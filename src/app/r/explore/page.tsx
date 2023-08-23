@@ -7,8 +7,8 @@ interface pageProps {}
 const page: FC<pageProps> = ({}) => {
   return (
     <>
-      <h1 className="flex items-center gap-2 font-bold text-3xl md:text-4xl">
-        <Navigation />
+      <h1 className="flex items-center font-bold text-3xl md:text-4xl">
+        <Navigation className="mr-4" />
         Explore
       </h1>
       {/* @ts-expect-error server component */}
