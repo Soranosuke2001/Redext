@@ -16,6 +16,7 @@ interface SubredditListProps {
 const SubredditList: FC<SubredditListProps> = ({
   communities,
 }: SubredditListProps) => {
+  // Infinite Scrolling constants
   const lastCommunityRef = useRef<HTMLElement>(null);
   const { ref, entry } = useIntersection({
     root: lastCommunityRef.current,
@@ -42,6 +43,7 @@ const SubredditList: FC<SubredditListProps> = ({
     }
   );
 
+  // Fetching more data when the user scrolls to the last list item
   useEffect(() => {
     if (entry?.isIntersecting) {
       fetchNextPage();
@@ -59,13 +61,16 @@ const SubredditList: FC<SubredditListProps> = ({
           {subreddits.map((community, index) => {
             if (index === subreddits.length - 1) {
               return (
-                <li key={community.subredditId} ref={ref} className="">
+                <li key={community.subredditId} ref={ref}>
                   <SubredditCard community={community} />
                 </li>
               );
             } else {
               return (
-                <SubredditCard key={community.subredditId} community={community} />
+                <SubredditCard
+                  key={community.subredditId}
+                  community={community}
+                />
               );
             }
           })}
