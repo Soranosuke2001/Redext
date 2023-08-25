@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { Inter } from "next/font/google";
 import Providers from "@/components/Providers";
 import { Toaster } from "@/components/ui/Toaster";
+import { Analytics } from "@vercel/analytics/react";
 
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/dark-mode/Theme-Provider";
@@ -43,6 +44,7 @@ export default function RootLayout({
           </Providers>
         </ThemeProvider>
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
