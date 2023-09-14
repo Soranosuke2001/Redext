@@ -41,8 +41,7 @@ const Navbar = async () => {
                 variant: "outline",
               })}
             >
-              <LogIn className="block md:hidden" />
-              <p className="hidden md:block">Sign In</p>
+              <LogIn />
             </Link>
           )}
         </div>
